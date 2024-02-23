@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NewMonoBehaviour : MonoBehaviour
 {
-     protected virtual void Reset()
+    protected virtual void Reset()
     {
         this.LoadComponents();
         this.ResetValue();
@@ -32,5 +29,4 @@ public class NewMonoBehaviour : MonoBehaviour
     {
         //for override
     }
-    
 }
