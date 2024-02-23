@@ -3,7 +3,7 @@ using UnityEngine;
 public class ObjectMoveFoward : ObjectMovement
 {
     [SerializeField] protected CharacterController controller;
-
+    [SerializeField] protected Animator animator;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -20,7 +20,6 @@ public class ObjectMoveFoward : ObjectMovement
     private void Update() {
         Move();
     }
-
     protected virtual void Move()
     {
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
@@ -29,9 +28,10 @@ public class ObjectMoveFoward : ObjectMovement
             velocity.y = -2f;
         }
         float moveZ = Input.GetAxis("Vertical");
-
-        moveDirection = new Vector3(0, 0, moveZ);
-
+        float moveX = Input.GetAxis("Horizontal");
+        float xScale =Mathf.Abs(transform.localScale.x);
+        moveDirection = new Vector3(moveX, 0, moveZ);
+        //moveDirection = transform.TransformDirection(moveDirection);
         if(isGrounded)
         {
             if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
@@ -53,9 +53,15 @@ public class ObjectMoveFoward : ObjectMovement
             }
         }
 
-        
+        if(moveX < 0)
+        {
+            transform.parent.localScale = new Vector3(-xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+        }
+        else
+        {
+            transform.parent.localScale = new Vector3(xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+        }
         controller.Move(moveDirection * Time.deltaTime);
-
         velocity.y += gravity *  Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -63,19 +69,19 @@ public class ObjectMoveFoward : ObjectMovement
     protected virtual void Run()
     {
         moveSpeed = runSpeed;
+        animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
+        
     }
-
     protected virtual void Idle()
     {
-
+        animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
     }
-
     protected virtual void Walk()
     {
         moveSpeed = walkSpeed;
+        animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
     }
-
-    private void Jump()
+    protected virtual void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
     }
