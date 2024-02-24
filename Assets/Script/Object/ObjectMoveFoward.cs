@@ -4,6 +4,7 @@ public class ObjectMoveFoward : ObjectMovement
 {
     [SerializeField] protected CharacterController controller;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected bool isJumping;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -19,10 +20,12 @@ public class ObjectMoveFoward : ObjectMovement
 
     private void Update() {
         Move();
+        Jump();
     }
+
     protected virtual void Move()
     {
-        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
+        isGrounded = Physics.CheckSphere(transform.parent.position, groundCheckDistance, groundMask);
         if(isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
@@ -30,10 +33,12 @@ public class ObjectMoveFoward : ObjectMovement
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
         float xScale =Mathf.Abs(transform.localScale.x);
+        float ySpeed = velocity.y;
         moveDirection = new Vector3(moveX, 0, moveZ);
         //moveDirection = transform.TransformDirection(moveDirection);
         if(isGrounded)
         {
+            animator.SetTrigger("Land");
             if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
             {   
                 Walk();
@@ -47,9 +52,21 @@ public class ObjectMoveFoward : ObjectMovement
                 Idle();
             }
             moveDirection *= walkSpeed;  
-            if(Input.GetKeyDown(KeyCode.Space))
+            animator.SetBool("isGround", true);
+            isGrounded = true;
+            animator.SetBool("isJumping", false);
+            isJumping = false;
+            animator.SetBool("isFalling", false);   
+        }
+        else 
+        {
+            isJumping = true;
+            animator.SetBool("isJumping", true);
+            animator.SetBool("isGround", false);
+            isGrounded = false;
+            if(isJumping && velocity.y > 0)
             {
-                Jump();
+                animator.SetBool("isFalling", true);
             }
         }
 
@@ -83,6 +100,9 @@ public class ObjectMoveFoward : ObjectMovement
     }
     protected virtual void Jump()
     {
-        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        } 
     }
 }
