@@ -33,7 +33,7 @@ public class ObjectMoveFoward : ObjectMovement
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
         float xScale =Mathf.Abs(transform.localScale.x);
-        float ySpeed = velocity.y;
+        float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
         moveDirection = new Vector3(moveX, 0, moveZ);
         //moveDirection = transform.TransformDirection(moveDirection);
         if(isGrounded)
@@ -46,6 +46,7 @@ public class ObjectMoveFoward : ObjectMovement
             else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
             {
                 Run();
+                inputMagnitude *= 2;
             }
             else if(moveDirection == Vector3.zero)
             {
@@ -57,6 +58,7 @@ public class ObjectMoveFoward : ObjectMovement
             animator.SetBool("isJumping", false);
             isJumping = false;
             animator.SetBool("isFalling", false);   
+            animator.SetFloat("Speed", inputMagnitude, 0.05f, Time.deltaTime);
         }
         else 
         {
@@ -70,24 +72,33 @@ public class ObjectMoveFoward : ObjectMovement
             }
         }
 
-        if(moveX < 0)
-        {
-            transform.parent.localScale = new Vector3(-xScale, transform.parent.localScale.y, transform.parent.localScale.z);
-        }
-        else
-        {
-            transform.parent.localScale = new Vector3(xScale, transform.parent.localScale.y, transform.parent.localScale.z);
-        }
+        
         controller.Move(moveDirection * Time.deltaTime);
         velocity.y += gravity *  Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            animator.SetBool("isMoving", true);
+            if(moveX < 0)
+            {
+                transform.parent.localScale = new Vector3(-xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+            }
+            else
+            {
+                transform.parent.localScale = new Vector3(xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+            }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
     }
 
     protected virtual void Run()
     {
         moveSpeed = runSpeed;
-        animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
-        
+        // animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);       
     }
     protected virtual void Idle()
     {
@@ -96,7 +107,7 @@ public class ObjectMoveFoward : ObjectMovement
     protected virtual void Walk()
     {
         moveSpeed = walkSpeed;
-        animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
+        // animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
     }
     protected virtual void Jump()
     {
