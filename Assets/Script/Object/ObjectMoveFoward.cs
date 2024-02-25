@@ -36,62 +36,66 @@ public class ObjectMoveFoward : ObjectMovement
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
         moveDirection = new Vector3(moveX, 0, moveZ);
         //moveDirection = transform.TransformDirection(moveDirection);
-        if(isGrounded)
+        if(isMove)
         {
-            animator.SetTrigger("Land");
-            if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
-            {   
-                Walk();
-            }
-            else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
-            {
-                Run();
-                inputMagnitude *= 2;
-            }
-            else if(moveDirection == Vector3.zero)
-            {
-                Idle();
-            }
-            moveDirection *= walkSpeed;  
-            animator.SetBool("isGround", true);
-            isGrounded = true;
-            animator.SetBool("isJumping", false);
-            isJumping = false;
-            animator.SetBool("isFalling", false);   
-            animator.SetFloat("Speed", inputMagnitude, 0.05f, Time.deltaTime);
-        }
-        else 
-        {
-            isJumping = true;
-            animator.SetBool("isJumping", true);
-            animator.SetBool("isGround", false);
-            isGrounded = false;
-            if(isJumping && velocity.y > 0)
-            {
-                animator.SetBool("isFalling", true);
-            }
-        }
 
-        
-        controller.Move(moveDirection * Time.deltaTime);
-        velocity.y += gravity *  Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            animator.SetBool("isMoving", true);
-            if(moveX < 0)
+            if(isGrounded)
             {
-                transform.parent.localScale = new Vector3(-xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+                animator.SetTrigger("Land");
+                if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
+                {   
+                    Walk();
+                }
+                else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+                {
+                    Run();
+                    inputMagnitude *= 2;
+                }
+                else if(moveDirection == Vector3.zero)
+                {
+                    Idle();
+                }
+                moveDirection *= walkSpeed;  
+                animator.SetBool("isGround", true);
+                isGrounded = true;
+                animator.SetBool("isJumping", false);
+                isJumping = false;
+                animator.SetBool("isFalling", false);   
+                animator.SetFloat("Speed", inputMagnitude, 0.05f, Time.deltaTime);
+            }
+            else 
+            {
+                isJumping = true;
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isGround", false);
+                isGrounded = false;
+                if(isJumping && velocity.y > 0)
+                {
+                    animator.SetBool("isFalling", true);
+                }
+            }
+
+            
+            controller.Move(moveDirection * Time.deltaTime);
+            velocity.y += gravity *  Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+
+            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                animator.SetBool("isMoving", true);
+                if(moveX < 0)
+                {
+                    transform.parent.localScale = new Vector3(-xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+                }
+                else
+                {
+                    transform.parent.localScale = new Vector3(xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+                }
             }
             else
             {
-                transform.parent.localScale = new Vector3(xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+                animator.SetBool("isMoving", false);
             }
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
         }
     }
 

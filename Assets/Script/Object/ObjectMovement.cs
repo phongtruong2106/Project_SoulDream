@@ -12,7 +12,9 @@ public class ObjectMovement : NewMonoBehaviour
     
     protected Vector3 moveDirection;
     protected Vector3 velocity;
-    [SerializeField] protected bool isGrounded;
+    public bool isGrounded;
+    public bool isMove = true;
+
     [SerializeField] protected float groundCheckDistance;
     [SerializeField] protected LayerMask groundMask;
     [SerializeField] protected float gravity;
