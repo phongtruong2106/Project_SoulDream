@@ -6,16 +6,17 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     [Header("ObjectLedgeClimb")]
     [SerializeField] protected Transform targetPointBegun;
     [SerializeField] protected Transform targetPointOver;
-    [HideInInspector] public bool ledgeDetected;
     [SerializeField] protected Animator animator;
     private bool canClimbLedge = false;
     private bool canGrabLedge = true;
     private Vector3 TargetPoint1;
     private Vector3 TargetPoint2;
-
+    [HideInInspector] public bool ledgeDetected;
+    
     private void Update() {
         CheckForLedge();
         AnimationController();
+        Debug.Log(ledgeDetected);
     }
     private void CheckForLedge()
     {
@@ -43,9 +44,7 @@ public class ObjectLedgeClimb : NewMonoBehaviour
         ledgeDetected = false;
         transform.parent.position = TargetPoint2;
         PlayerControler.instance._objectMovement.isMove = true;
-        animator.SetBool("isClimbLedge", canClimbLedge);
         Invoke("AllowLedgeGrab", 0.1f);
-      
     }
     protected virtual void AnimationController()
     {

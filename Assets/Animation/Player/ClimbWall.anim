@@ -63816,7 +63816,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.1666666
-    functionName: 
+    functionName: HandleLedgeClimbOver
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 0b1c590e632b91646ab4cc26597e6696, type: 3}
     floatParameter: 0

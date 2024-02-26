@@ -37,10 +37,4 @@ public class PlayerControler : NewMonoBehaviour
         this.objectLedgeClimb = GetComponentInChildren<ObjectLedgeClimb>();
         Debug.Log(transform.name + ": LoadObjectLedgeClimb();", gameObject);
     }
-    // protected virtual void LoadAnimator()
-    // {
-    //     if(this.animator != null) return;
-    //     this.animator = GetComponentInChildren<Animator>();
-    //     Debug.Log(transform.name + ": LoadAnimator()", gameObject);
-    // }
 }

@@ -55,11 +55,11 @@ public class ObjectMoveFoward : ObjectMovement
                 {
                     Idle();
                 }
-                moveDirection *= walkSpeed;  
-                animator.SetBool("isGround", true);
+                moveDirection *= moveSpeed;  
                 isGrounded = true;
-                animator.SetBool("isJumping", false);
                 isJumping = false;
+                animator.SetBool("isGround", true);
+                animator.SetBool("isJumping", false);
                 animator.SetBool("isFalling", false);   
                 animator.SetFloat("Speed", inputMagnitude, 0.05f, Time.deltaTime);
             }
@@ -101,8 +101,7 @@ public class ObjectMoveFoward : ObjectMovement
 
     protected virtual void Run()
     {
-        moveSpeed = runSpeed;
-        // animator.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);       
+        moveSpeed = runSpeed;     
     }
     protected virtual void Idle()
     {
@@ -111,7 +110,6 @@ public class ObjectMoveFoward : ObjectMovement
     protected virtual void Walk()
     {
         moveSpeed = walkSpeed;
-        // animator.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
     }
     protected virtual void Jump()
     {
