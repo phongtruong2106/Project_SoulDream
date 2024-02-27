@@ -34,13 +34,6 @@ public class ObjectLedgeDetection : NewMonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    // protected virtual void CheckLedgeDetected() {
-    //     Collider[] colliders = Physics.OverlapSphere(transform.position, radius, whatIsGround);
-    //     ledgeDetecteds = colliders.Length > 0;
-    //     // ledgeDetected = Physics2D.OverlapCircle(transform.position, radius);
-    //     // Debug.Log(ledgeDetected);
-    // }
-
     protected virtual void IsCanDetected() {
         if (canDetected) {
            Collider[] colliders = Physics.OverlapSphere(transform.position, radius, whatIsGround);
