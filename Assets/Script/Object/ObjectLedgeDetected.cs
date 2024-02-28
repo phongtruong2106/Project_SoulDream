@@ -10,10 +10,6 @@ public class ObjectLedgeDetection : NewMonoBehaviour
     //[SerializeField] protected bool ledgeDetecteds;
     [SerializeField] private bool canDetected;
 
-    protected override void Start() {
-        // canDetected = true;
-    }
-
     private void Update() {
         this.IsCanDetected();
     }   
