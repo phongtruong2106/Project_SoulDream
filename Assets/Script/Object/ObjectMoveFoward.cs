@@ -30,12 +30,11 @@ public class ObjectMoveFoward : ObjectMovement
         {
             velocity.y = -2f;
         }
-        float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
         float xScale =Mathf.Abs(transform.localScale.x);
         float zScale = Mathf.Abs(transform.localScale.z);
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
-        moveDirection = new Vector3(moveX, 0, moveZ);
+        moveDirection = new Vector3(moveX, 0, 0);
         //moveDirection = transform.TransformDirection(moveDirection);
         if(isMove)
         {

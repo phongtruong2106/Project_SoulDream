@@ -19,13 +19,13 @@ public class ObjectLedgeDetection : NewMonoBehaviour
     }   
 
     protected virtual void OnTriggerEnter(Collider collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Box")) {
             canDetected = false;
         }
     }
 
     protected virtual void OnTriggerExit(Collider collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Box")) {
             canDetected = true;
         }
     }
