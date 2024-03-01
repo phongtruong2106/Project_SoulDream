@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ObjectMovement : NewMonoBehaviour
 {
+    
     [Header("Object Movement")]
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float walkSpeed;
@@ -19,4 +20,9 @@ public class ObjectMovement : NewMonoBehaviour
     [SerializeField] protected LayerMask groundMask;
     [SerializeField] protected float gravity;
     [SerializeField] protected float jumpHeight;
+
+    protected float moveX;
+    public float _moveX => moveX;
+    protected float moveY;
+    public float _moveY => moveY;
 }

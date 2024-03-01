@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ObjectMoveFoward : ObjectMovement
 {
+    [Header("ObjectMoveFoward")]
     [SerializeField] protected CharacterController controller;
     [SerializeField] protected Animator animator;
     [SerializeField] protected bool isJumping;
@@ -30,12 +31,12 @@ public class ObjectMoveFoward : ObjectMovement
         {
             velocity.y = -2f;
         }
-        float moveX = Input.GetAxis("Horizontal");
-        float xScale =Mathf.Abs(transform.localScale.x);
+        moveX = Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f ? 0f : Input.GetAxis("Horizontal");
+        Debug.Log(moveX);
+        moveY = Input.GetAxis("Vertical");
         float zScale = Mathf.Abs(transform.localScale.z);
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
         moveDirection = new Vector3(moveX, 0, 0);
-        //moveDirection = transform.TransformDirection(moveDirection);
         if(isMove)
         {
 
@@ -80,16 +81,16 @@ public class ObjectMoveFoward : ObjectMovement
             velocity.y += gravity *  Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
 
-            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            if(moveX != 0 || moveY != 0)
             {
                 animator.SetBool("isMoving", true);
                 if(moveX < 0)
                 {
-                    transform.parent.localScale = new Vector3(-xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+                    transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, -zScale);
                 }
                 else
                 {
-                    transform.parent.localScale = new Vector3(xScale, transform.parent.localScale.y, transform.parent.localScale.z);
+                    transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, zScale);
                 }
             }
             else
@@ -98,6 +99,7 @@ public class ObjectMoveFoward : ObjectMovement
             }
         }
     }
+    
 
     protected virtual void Run()
     {

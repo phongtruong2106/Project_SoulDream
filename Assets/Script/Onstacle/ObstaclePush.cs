@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObstaclePush : NewMonoBehaviour
@@ -9,18 +10,26 @@ public class ObstaclePush : NewMonoBehaviour
     [SerializeField] protected LayerMask layerMask;
     [SerializeField] protected float MAXDIS;
     [SerializeField] protected bool turn = false;
-    
+    [SerializeField] protected PlayerControler playerControler;
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadPlayerController();
+    }
+
+    protected virtual void LoadPlayerController()
+    {
+        if(this.playerControler != null) return;
+        this.playerControler = GetComponent<PlayerControler>();
+        Debug.Log(transform.name + ": LoadPlayerControler", gameObject);
+    }
+
     private void Update() {
         this.CheckRaycast();
     }
     protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // if (hit.collider.CompareTag("Box"))
-        // {
-        //     CheckInput();
-        // }
-        // if(isPushing)
-        // {
             Rigidbody rigidbody = hit.collider.attachedRigidbody;
             if(rigidbody != null)
             {
@@ -32,20 +41,22 @@ public class ObstaclePush : NewMonoBehaviour
                     rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
                 }
             }
-        // }
         
     }
 
     protected virtual void CheckRaycast()
     {
-        Debug.DrawRay(transform.position, Vector3.forward, Color.red,MAXDIS);
-        if(Physics.Raycast(transform.position, Vector3.forward, MAXDIS, layerMask))
+        Debug.DrawRay(transform.position, transform.forward, Color.red,MAXDIS);
+        if(Physics.Raycast(transform.position, transform.forward, MAXDIS, layerMask))
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
                 turn = true;
                 animator.SetBool("isPush", true);
-                Debug.Log(turn);
+            }
+            else
+            {
+                turn = false;
             }
             this.CheckMove();
         }
@@ -53,11 +64,16 @@ public class ObstaclePush : NewMonoBehaviour
 
     protected virtual void CheckMove()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        // if (playerControler._objectMovement._moveX == 0)
+        // {
+        //     animator.SetBool("isPush", false);
+        //     turn = false;
+        // }
+
+        if (Input.GetAxisRaw("Horizontal") == 0)
         {
             animator.SetBool("isPush", false);
             turn = false;
         }
     }
-
 }
