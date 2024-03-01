@@ -14,7 +14,6 @@ public class ObjectPushDetected : NewMonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius, whatIsGround);
         pushDetected = colliders.Length > 0;
-        Debug.Log(pushDetected);
     }
     protected virtual void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position, radius);
