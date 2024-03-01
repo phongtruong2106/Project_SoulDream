@@ -12,7 +12,7 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     private Vector3 TargetPoint1;
     private Vector3 TargetPoint2;
     [HideInInspector] public bool ledgeDetected;
-    
+
     private void Update() {
         CheckForLedge();
         AnimationController();

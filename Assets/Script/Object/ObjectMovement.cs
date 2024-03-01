@@ -25,4 +25,15 @@ public class ObjectMovement : NewMonoBehaviour
     public float _moveX => moveX;
     protected float moveY;
     public float _moveY => moveY;
+
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+        this.walkSpeed = 2;
+        this.runSpeed = 7;
+        this.isMove = true;
+        this.groundCheckDistance = 0.2f;
+        this.gravity = -9.81f;
+        this.jumpHeight = 2;
+    }
 }

@@ -6,12 +6,20 @@ public class ObjectMoveFoward : ObjectMovement
     [SerializeField] protected CharacterController controller;
     [SerializeField] protected Animator animator;
     [SerializeField] protected bool isJumping;
+    [SerializeField] protected PlayerControler playerControler;
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadCharacterController();
+        this.LoadPlayerController();
     }
 
+    protected virtual void LoadPlayerController()
+    {
+        if(this.playerControler != null) return;
+        this.playerControler = transform.parent.GetComponent<PlayerControler>();
+        Debug.Log(transform.name + ": LoadPlayerController()", gameObject);
+    }
     protected virtual void LoadCharacterController()
     {
         if(this.controller != null) return;
@@ -32,7 +40,6 @@ public class ObjectMoveFoward : ObjectMovement
             velocity.y = -2f;
         }
         moveX = Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f ? 0f : Input.GetAxis("Horizontal");
-        Debug.Log(moveX);
         moveY = Input.GetAxis("Vertical");
         float zScale = Mathf.Abs(transform.localScale.z);
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
@@ -87,6 +94,7 @@ public class ObjectMoveFoward : ObjectMovement
                 if(moveX < 0)
                 {
                     transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, -zScale);
+                    playerControler._objectLedgeDetection.canDetected = false;
                 }
                 else
                 {

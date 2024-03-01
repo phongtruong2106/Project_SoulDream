@@ -6,8 +6,8 @@ public class ObjectLedgeDetection : NewMonoBehaviour
     [SerializeField] private float radius;
     [SerializeField] private LayerMask whatIsGround;
     public ObjectLedgeClimb objectLedgeClimb;
-    public PlayerControler playerControler;
-    [SerializeField] private bool canDetected;
+    public bool canDetected;
+   
 
     private void Update() {
         this.IsCanDetected();

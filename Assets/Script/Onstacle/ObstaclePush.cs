@@ -46,8 +46,7 @@ public class ObstaclePush : NewMonoBehaviour
 
     protected virtual void CheckRaycast()
     {
-        Debug.DrawRay(transform.position, transform.forward, Color.red,MAXDIS);
-        if(Physics.Raycast(transform.position, transform.forward, MAXDIS, layerMask))
+        if(playerControler._objectPushDetected.pushDetected)
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
