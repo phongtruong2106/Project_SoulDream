@@ -123,9 +123,13 @@ public class ObjectMoveFoward : ObjectMovement
     }
     protected virtual void Jump()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded && !isJumping)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-        } 
+            isJumping = true;
+            animator.SetBool("isJumping", true);
+            animator.SetBool("isGround", false);
+            animator.SetBool("isFalling", false);
+        }
     }
 }

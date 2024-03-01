@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22886dc91e3a41e47918428e212da3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 1
+  forceMagnitude: 0.7
   isCanInput: 0
   isPushing: 0
   animator: {fileID: 3280050160092222269}

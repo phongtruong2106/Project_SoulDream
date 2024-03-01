@@ -16,7 +16,6 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     private void Update() {
         CheckForLedge();
         AnimationController();
-        //Debug.Log(ledgeDetected);
     }
     private void CheckForLedge()
     {

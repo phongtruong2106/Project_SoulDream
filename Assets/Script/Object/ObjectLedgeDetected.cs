@@ -16,14 +16,12 @@ public class ObjectLedgeDetection : NewMonoBehaviour
     protected virtual void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             canDetected = false;
-            //Debug.Log(canDetected);
         }
     }
 
     protected virtual void OnTriggerExit(Collider collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             canDetected = true;
-           // Debug.Log(canDetected);
         }
     }
 
