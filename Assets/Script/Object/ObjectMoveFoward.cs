@@ -99,6 +99,7 @@ public class ObjectMoveFoward : ObjectMovement
                 else
                 {
                     transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, zScale);
+                    playerControler._objectLedgeDetection.canDetected = false;
                 }
             }
             else
