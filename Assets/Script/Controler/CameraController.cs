@@ -10,6 +10,7 @@ public class CameraController : NewMonoBehaviour
     [SerializeField] public float zoom;
     public float xOffset;
     public float yOffset;
+    
     public float followSpeed = 1;
     public float defaultxOffset;
     public float defaultyOffset;
