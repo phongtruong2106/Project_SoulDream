@@ -4,6 +4,9 @@ using UnityEngine;
 public class CameraController : NewMonoBehaviour
 {
     [SerializeField] protected GameObject player;
+    public GameObject _player => player;
+    // [SerializeField] protected GameObject target;
+    // public GameObject _target => target;
     [SerializeField] protected Vector3 targetPosition;
     [SerializeField] protected Vector3 targetRotationAngles;
     [SerializeField] public float defaultZoom;
@@ -27,6 +30,7 @@ public class CameraController : NewMonoBehaviour
         xOffset = defaultxOffset;
         yOffset = defaultyOffset;
         followSpeed = defaulFollowSpeed;
+        // target = player;
     }
     protected override void LoadComponents()
     {
@@ -55,7 +59,8 @@ public class CameraController : NewMonoBehaviour
 
     protected virtual void Rotation()
     {
-        targetRotationAngles = new Vector3(player.transform.position.x + xRosOffset, player.transform.position.y + yRosOffset, player.transform.position.z);
+        targetRotationAngles = new Vector3(player.transform.rotation.x + xRosOffset, player.transform.rotation.y + yRosOffset, player.transform.rotation.z);
         transform.rotation = Quaternion.Euler(targetRotationAngles);
+        //transform.rotation = Vector3.Lerp
     }
 }
