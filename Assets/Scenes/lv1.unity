@@ -1457,7 +1457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6821301959116225285}
   target: {x: 0, y: 0, z: 0}
-  defaultZoom: -22.3
+  defaultZoom: -14.7
   zoom: 0
   xOffset: 0
   yOffset: 4.87
