@@ -63,12 +63,6 @@ public class ObstaclePush : NewMonoBehaviour
 
     protected virtual void CheckMove()
     {
-        // if (playerControler._objectMovement._moveX == 0)
-        // {
-        //     animator.SetBool("isPush", false);
-        //     turn = false;
-        // }
-
         if (Input.GetAxisRaw("Horizontal") == 0)
         {
             animator.SetBool("isPush", false);
