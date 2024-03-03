@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CameraController : NewMonoBehaviour
 {
-    [SerializeField] protected GameObject player;
-    public GameObject _player => player;
-    // [SerializeField] protected GameObject target;
-    // public GameObject _target => target;
+    [SerializeField] public GameObject targetDefaul;
+    public GameObject _targetDefaul => targetDefaul;
+    [SerializeField] public GameObject targetPlayer;
+    public GameObject _targetPlayer => targetPlayer;
     [SerializeField] protected Vector3 targetPosition;
     [SerializeField] protected Vector3 targetRotationAngles;
     [SerializeField] public float defaultZoom;
@@ -23,6 +23,7 @@ public class CameraController : NewMonoBehaviour
     public float defaultyOffset;
     public float defaulFollowSpeed = 1;
 
+    [SerializeField] protected Quaternion targetRotation;
     protected override void Start()
     {
         base.Start();
@@ -30,19 +31,12 @@ public class CameraController : NewMonoBehaviour
         xOffset = defaultxOffset;
         yOffset = defaultyOffset;
         followSpeed = defaulFollowSpeed;
-        // target = player;
+        targetDefaul = targetPlayer;
     }
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.loadPlayerCharacter();
-    }
-
-    protected virtual void loadPlayerCharacter()
-    {
-        if(this.player != null) return;
-        this.player = FindAnyObjectByType<CharacterController>().gameObject;
-        Debug.Log(transform.name + ": LoadCharacterController()", gameObject);
+        //this.loadPlayerCharacter();
     }
 
     protected void Update()
@@ -53,14 +47,13 @@ public class CameraController : NewMonoBehaviour
 
     protected virtual void Position()
     {
-        targetPosition = new Vector3(player.transform.position.x + xOffset, player.transform.position.y + yOffset, zoom);
+        targetPosition = new Vector3(targetDefaul.transform.position.x + xOffset, targetDefaul.transform.position.y + yOffset, zoom);
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
     }
 
     protected virtual void Rotation()
     {
-        targetRotationAngles = new Vector3(player.transform.rotation.x + xRosOffset, player.transform.rotation.y + yRosOffset, player.transform.rotation.z);
-        transform.rotation = Quaternion.Euler(targetRotationAngles);
-        //transform.rotation = Vector3.Lerp
+        targetRotation = Quaternion.Euler(targetDefaul.transform.rotation.x + xRosOffset, targetDefaul.transform.rotation.y + yRosOffset, targetDefaul.transform.rotation.z);
+         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, followSpeed * Time.deltaTime);
     }
 }

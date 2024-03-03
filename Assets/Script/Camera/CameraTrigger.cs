@@ -10,7 +10,7 @@ public class CameraTrigger : NewMonoBehaviour
     [SerializeField] protected float followSpeed;
  
     [SerializeField] protected CameraController cameraController;
-    [SerializeField] protected Transform targetPoint;
+    [SerializeField] protected GameObject targetPoint;
 
     protected override void LoadComponents()
     {
@@ -35,6 +35,7 @@ public class CameraTrigger : NewMonoBehaviour
             cameraController.followSpeed = followSpeed;
             cameraController.xRosOffset = this.xRosOffset;
             cameraController.yRosOffset = this.yRosOffset;
+            cameraController.targetDefaul = this.targetPoint;
 
         }
     }
@@ -47,6 +48,7 @@ public class CameraTrigger : NewMonoBehaviour
             cameraController.xOffset = cameraController.defaultxOffset;
             cameraController.yOffset = cameraController.defaultyOffset;
             cameraController.followSpeed = cameraController.defaulFollowSpeed;
+            cameraController.targetDefaul = cameraController.targetPlayer;
             cameraController.xRosOffset = 0;
             cameraController.yRosOffset = 0;
         } 
