@@ -39,16 +39,37 @@ public class KeyHolder : NewMonoBehaviour
         return keyList.Contains(keyType);
     }
 
-    protected virtual void OnTriggerEnter(Collider other)
+    protected virtual void CheckForFKey(Collider collider)
     {
-        Key key = other.GetComponent<Key>();
+        if (Input.GetKey(KeyCode.F))
+        {
+            HandleFKeyPressed(collider);
+        }
+    }
+
+    protected virtual void HandleFKeyPressed(Collider collider)
+    {
+        this.Key(collider);
+        this.KeyDoor(collider);
+    }
+
+    protected virtual void OnTriggerStay(Collider other)
+    {
+        CheckForFKey(other);
+    }    protected virtual void Key(Collider collider)
+    {
+        Key key = collider.GetComponent<Key>();
         if(key != null) 
         {
             AddKey(key.GetKeyType());
             Destroy(key.transform.parent.gameObject);
+            
         }
+    }
 
-        KeyDoor keyDoor = other.GetComponent<KeyDoor>();
+    protected virtual void KeyDoor(Collider collider)
+    {
+        KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if(keyDoor != null)
         {
             if(ContainsKey(keyDoor.GetKeyType()))

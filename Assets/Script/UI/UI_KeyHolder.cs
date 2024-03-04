@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_KeyHolder : NewMonoBehaviour
+public class UI_KeyHolder : UI
 {
-    [SerializeField] protected KeyHolder keyHolder;
-    private Transform container;
-    private Transform keyTemplate;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        container = transform.Find("container");
-        keyTemplate = container.Find("keyTemplate");
-        keyTemplate.gameObject.SetActive(false);
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -27,12 +15,13 @@ public class UI_KeyHolder : NewMonoBehaviour
     {
         UpdateVisual();
     }
-    protected virtual void UpdateVisual()
+    
+    protected override void UpdateVisual()
     {
-        //clear up old key
+         //clear up old key
         foreach(Transform child in container)
         {
-            if(child == keyTemplate) continue;
+            if(child == Template) continue;
             Destroy(child.gameObject);
         }
         //
@@ -40,7 +29,7 @@ public class UI_KeyHolder : NewMonoBehaviour
         for(int i = 0; i < keyList.Count; i++)
         {
             Key.KeyType keyType = keyList[i];
-            Transform keyTransform = Instantiate(keyTemplate, container);
+            Transform keyTransform = Instantiate(Template, container);
             keyTransform.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(50 * i, 0, 0);
             Image keyImage = keyTransform.Find("Key").GetComponent<Image>();
             switch (keyType)

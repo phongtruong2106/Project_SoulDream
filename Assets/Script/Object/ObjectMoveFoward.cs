@@ -7,6 +7,9 @@ public class ObjectMoveFoward : ObjectMovement
     [SerializeField] protected Animator animator;
     [SerializeField] protected bool isJumping;
     [SerializeField] protected PlayerControler playerControler;
+    [SerializeField] protected float rotationSpeed = 10f;
+
+    protected Vector3 previousMoveDirection;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -40,10 +43,11 @@ public class ObjectMoveFoward : ObjectMovement
             velocity.y = -2f;
         }
         moveX = Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f ? 0f : Input.GetAxis("Horizontal");
-        moveY = Input.GetAxis("Vertical");
+        moveY = Mathf.Abs(Input.GetAxis("Vertical")) < 0.01f ? 0f : Input.GetAxis("Vertical");
         float zScale = Mathf.Abs(transform.localScale.z);
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
         moveDirection = new Vector3(moveX, 0, 0);
+        
         if(isMove)
         {
 
@@ -91,17 +95,21 @@ public class ObjectMoveFoward : ObjectMovement
             if(moveX != 0 || moveY != 0)
             {
                 animator.SetBool("isMoving", true);
-                if(moveX < 0)
+                if (isMove && moveDirection != previousMoveDirection)
                 {
-                    transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, -zScale);
-                    playerControler._objectLedgeDetection.canDetected = false;
+                    if (moveDirection.x < 0)
+                    {
+                        Flip(-zScale);
+                    }
+                    else
+                    {
+                        Flip(zScale);
+                    }
                 }
-                else
-                {
-                    transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, zScale);
-                    playerControler._objectLedgeDetection.canDetected = false;
-                }
-            }
+
+                // Update previousMoveDirection
+                previousMoveDirection = moveDirection;
+            }   
             else
             {
                 animator.SetBool("isMoving", false);
@@ -132,5 +140,13 @@ public class ObjectMoveFoward : ObjectMovement
             animator.SetBool("isGround", false);
             animator.SetBool("isFalling", false);
         }
+    }
+
+    protected virtual void Flip(float scale)
+    {
+        Quaternion targetRotation = Quaternion.Euler(0, (scale < 0) ? -95 : 95, 0);
+        transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        //transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, scale);
+        playerControler._objectLedgeDetection.canDetected = false;
     }
 }
