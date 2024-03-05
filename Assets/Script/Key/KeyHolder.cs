@@ -13,8 +13,6 @@ public class KeyHolder : NewMonoBehaviour
     {
         return keyList;
     }
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -77,6 +75,10 @@ public class KeyHolder : NewMonoBehaviour
             AddKey(key.GetKeyType());
             Destroy(key.transform.parent.gameObject);
         }
+        else
+        {
+            this.UnHideObje();
+        }
     }
 
     protected virtual void KeyDoor(Collider collider)
@@ -89,6 +91,10 @@ public class KeyHolder : NewMonoBehaviour
                 RemoveKey(keyDoor.GetKeyType());
                 keyDoor.OpenDoor();
             }
+        }
+        else
+        {
+            this.UnHideObje();
         }
     }
     protected virtual void CheckKeyOn(Collider collider)
