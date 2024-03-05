@@ -14,6 +14,7 @@ public class KeyHolder : NewMonoBehaviour
         return keyList;
     }
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -56,14 +57,25 @@ public class KeyHolder : NewMonoBehaviour
     protected virtual void OnTriggerStay(Collider other)
     {
         CheckForFKey(other);
-    }    protected virtual void Key(Collider collider)
+    }    
+    private void OnTriggerEnter(Collider other)
+    {
+        this.CheckKeyOn(other);
+        this.CheckKeyDoorOn(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        this.CheckKeyOut(other);
+        this.CheckKeyDoorOut(other);
+    }
+    protected virtual void Key(Collider collider)
     {
         Key key = collider.GetComponent<Key>();
         if(key != null) 
         {
             AddKey(key.GetKeyType());
             Destroy(key.transform.parent.gameObject);
-            
         }
     }
 
@@ -78,5 +90,48 @@ public class KeyHolder : NewMonoBehaviour
                 keyDoor.OpenDoor();
             }
         }
+    }
+    protected virtual void CheckKeyOn(Collider collider)
+    {
+        Key key = collider.GetComponent<Key>();
+        if(key != null) 
+        {
+            this.HideObj();
+            UIController.instance._text_ObjPress.text = "Press F to pick up";
+        }
+    }
+    protected virtual void CheckKeyOut(Collider collider)
+    {
+        Key key = collider.GetComponent<Key>();
+        if(key != null) 
+        {
+            this.UnHideObje();
+        }
+    }
+    protected virtual void CheckKeyDoorOn(Collider collider)
+    {
+        KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
+        if(keyDoor != null)
+        {   
+            this.HideObj();
+            UIController.instance._text_ObjPress.text = "Press F to open";
+        }
+    }
+    protected virtual void CheckKeyDoorOut(Collider collider)
+    {
+        KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
+        if(keyDoor != null)
+        {
+            this.UnHideObje();
+        }
+    }
+
+    protected virtual void HideObj()
+    {
+        UIController.instance.OpenObjPress();
+    }
+    protected virtual void UnHideObje()
+    {
+        UIController.instance.CloseObjPress();
     }
 }
