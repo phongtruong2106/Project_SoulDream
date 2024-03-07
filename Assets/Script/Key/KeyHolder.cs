@@ -9,6 +9,24 @@ public class KeyHolder : NewMonoBehaviour
     public static KeyHolder instance;
     private List<Key.KeyType> keyList;
 
+    [SerializeField] protected UIController uIController;
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadUIController();
+    }
+
+    protected virtual void Update()
+    {
+       // this.uIController._uI_Dialogue.Invoke("StopDialogue", 4f);
+    }
+    protected virtual void LoadUIController()
+    {
+        if(this.uIController!= null) return;
+        this.uIController = FindAnyObjectByType<UIController>();
+        Debug.Log(transform.name + ": LoadUIController()", gameObject);
+    }
+
     public List<Key.KeyType> GetKeyList()
     {
         return keyList;
@@ -95,6 +113,8 @@ public class KeyHolder : NewMonoBehaviour
         else
         {
             this.UnHideObje();
+            uIController._uI_Dialogue.ShowDialogue("Aslor :", "We're need KeyDoor");
+            uIController._uI_Dialogue.ShowDialogue("Aslor :", "I see the key on the table over there");
         }
     }
     protected virtual void CheckKeyOn(Collider collider)
@@ -103,7 +123,7 @@ public class KeyHolder : NewMonoBehaviour
         if(key != null) 
         {
             this.HideObj();
-            UIController.instance._text_ObjPress.text = "Press F to pick up";
+            uIController._uI_PressButton._text_ObjPress.text = "Press F to pick up";
         }
     }
     protected virtual void CheckKeyOut(Collider collider)
@@ -120,7 +140,7 @@ public class KeyHolder : NewMonoBehaviour
         if(keyDoor != null)
         {   
             this.HideObj();
-            UIController.instance._text_ObjPress.text = "Press F to open";
+            uIController._uI_PressButton._text_ObjPress.text = "Press F to open";
         }
     }
     protected virtual void CheckKeyDoorOut(Collider collider)
@@ -134,10 +154,10 @@ public class KeyHolder : NewMonoBehaviour
 
     protected virtual void HideObj()
     {
-        UIController.instance.OpenObjPress();
+        uIController._uI_PressButton.OpenObjPress();
     }
     protected virtual void UnHideObje()
     {
-        UIController.instance.CloseObjPress();
+        uIController._uI_PressButton.CloseObjPress();
     }
 }

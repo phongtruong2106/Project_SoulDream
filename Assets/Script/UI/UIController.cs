@@ -3,31 +3,39 @@ using UnityEngine;
 
 public class UIController : NewMonoBehaviour
 {
-    public static UIController instance;
-    [SerializeField] protected GameObject ui_ObjPress;
-    [SerializeField] protected TextMeshProUGUI text_ObjPress;
-    public TextMeshProUGUI _text_ObjPress => text_ObjPress;
+    [SerializeField] protected UI_Dialogue uI_Dialogue;
+    public UI_Dialogue _uI_Dialogue => uI_Dialogue;
+    [SerializeField] protected UI_PressButton uI_PressButton;
+    public UI_PressButton _uI_PressButton => uI_PressButton;
+    [SerializeField] protected UI_KeyHolder uI_KeyHolder;
+    public UI_KeyHolder _uI_KeyHolder => uI_KeyHolder;
 
-    protected override void Awake()
+    protected override void LoadComponents()
     {
-        base.Awake();
-        if(UIController.instance != null) Debug.LogError("Only 1 UIController allow to ");
-        UIController.instance = this;
+        base.LoadComponents();
+        this.LoadUIDialogue();
+        this.LoadUIPressButton();
+        this.LoadUIKeyHolder();
     }
 
-    protected override void Start()
+    protected virtual void LoadUIDialogue()
     {
-        base.Start();
-        CloseObjPress();
+        if(this.uI_Dialogue != null) return;
+        this.uI_Dialogue = GetComponentInChildren<UI_Dialogue>();
+        Debug.Log(transform.name + ": LoadUIDialogue()", gameObject);
     }
 
-    public virtual void OpenObjPress()
+    protected virtual void LoadUIPressButton()
     {
-        ui_ObjPress.gameObject.SetActive(true);
+        if(this.uI_PressButton != null) return;
+        this.uI_PressButton = GetComponentInChildren<UI_PressButton>();
+        Debug.Log(transform.name + ": LoadUIPressButton()", gameObject);
     }
 
-    public virtual void CloseObjPress()
+    protected virtual void LoadUIKeyHolder()
     {
-        ui_ObjPress.gameObject.SetActive(false);
+        if(this._uI_KeyHolder != null) return;
+        this.uI_KeyHolder = GetComponentInChildren<UI_KeyHolder>();
+        Debug.Log(transform.name + ": LoadUIKeyHolder()", gameObject);
     }
 }
