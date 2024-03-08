@@ -108,7 +108,6 @@ public class KeyHolder : NewMonoBehaviour
             {
                 RemoveKey(keyDoor.GetKeyType());
                 keyDoor.OpenDoor();
-                uIController._dialogueNew.ExitDialogue();
             }
             else
             {

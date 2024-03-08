@@ -1,6 +1,9 @@
+using System.Collections;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 public class DialogueManager : NewMonoBehaviour
 {
     [Header("Dialogue UI")]
@@ -39,16 +42,9 @@ public class DialogueManager : NewMonoBehaviour
         if(!dialogueIsPlaying)
         {
             return;
-        }
-
-        
-        
-    }
-    void FixedUpdate()
-    {
+        }     
         this.AutoContinueDialogue();
     }
-
     protected virtual void AutoContinueDialogue()
     {
        if(dialogueIsPlaying)
@@ -76,8 +72,10 @@ public class DialogueManager : NewMonoBehaviour
         ContinueStory();
     }
 
-    public void ExitDialogueMode()
+    public IEnumerator ExitDialogueMode()
     {
+        yield return new WaitForSeconds(2f);
+
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
@@ -91,7 +89,7 @@ public class DialogueManager : NewMonoBehaviour
         }
         else
         {
-            ExitDialogueMode(); 
+            StartCoroutine(ExitDialogueMode()); 
         }
     }
 }
