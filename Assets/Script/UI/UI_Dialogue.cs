@@ -87,4 +87,5 @@ public class UI_Dialogue : NewMonoBehaviour
     {
         obj_Dialogue.gameObject.SetActive(false);
     }
+
 }

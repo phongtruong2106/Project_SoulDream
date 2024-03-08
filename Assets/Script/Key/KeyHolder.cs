@@ -108,13 +108,16 @@ public class KeyHolder : NewMonoBehaviour
             {
                 RemoveKey(keyDoor.GetKeyType());
                 keyDoor.OpenDoor();
+                uIController._dialogueNew.ExitDialogue();
+            }
+            else
+            {
+                uIController._dialogueNew.OpenDialogue();
             }
         }
         else
         {
             this.UnHideObje();
-            uIController._uI_Dialogue.ShowDialogue("Aslor :", "We're need KeyDoor");
-            uIController._uI_Dialogue.ShowDialogue("Aslor :", "I see the key on the table over there");
         }
     }
     protected virtual void CheckKeyOn(Collider collider)

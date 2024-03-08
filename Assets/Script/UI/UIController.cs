@@ -9,6 +9,8 @@ public class UIController : NewMonoBehaviour
     public UI_PressButton _uI_PressButton => uI_PressButton;
     [SerializeField] protected UI_KeyHolder uI_KeyHolder;
     public UI_KeyHolder _uI_KeyHolder => uI_KeyHolder;
+    [SerializeField] protected DialogueNew dialogueNew;
+    public DialogueNew _dialogueNew => dialogueNew;
 
     protected override void LoadComponents()
     {
@@ -16,6 +18,7 @@ public class UIController : NewMonoBehaviour
         this.LoadUIDialogue();
         this.LoadUIPressButton();
         this.LoadUIKeyHolder();
+        this.LoadDialogueNew();
     }
 
     protected virtual void LoadUIDialogue()
@@ -37,5 +40,11 @@ public class UIController : NewMonoBehaviour
         if(this._uI_KeyHolder != null) return;
         this.uI_KeyHolder = GetComponentInChildren<UI_KeyHolder>();
         Debug.Log(transform.name + ": LoadUIKeyHolder()", gameObject);
+    }
+    protected virtual void LoadDialogueNew()
+    {
+        if(this.dialogueNew != null) return;
+        this.dialogueNew = GetComponentInChildren<DialogueNew>();
+        Debug.Log(transform.name + ": LoadDialogueNew()", gameObject);
     }
 }
