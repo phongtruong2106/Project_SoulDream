@@ -91,29 +91,7 @@ public class ObjectMoveFoward : ObjectMovement
             controller.Move(moveDirection * Time.deltaTime);
             velocity.y += gravity *  Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
-
-            if(moveX != 0 || moveZ != 0)
-            {
-                animator.SetBool("isMoving", true);
-                if (isMove && moveDirection != previousMoveDirection)
-                {
-                    if (moveDirection.x < 0)
-                    {
-                        FlipX(-zScale);
-                    }
-                    else
-                    {
-                        FlipX(zScale);
-                    }
-                }
-
-                // Update previousMoveDirection
-                previousMoveDirection = moveDirection;
-            }   
-            else
-            {
-                animator.SetBool("isMoving", false);
-            }
+            this.HandleRotation();
         }
     }
     protected virtual void Run()
@@ -139,12 +117,20 @@ public class ObjectMoveFoward : ObjectMovement
             animator.SetBool("isFalling", false);
         }
     }
-
-    protected virtual void FlipX(float scale)
+    protected virtual void HandleRotation()
     {
-        Quaternion targetRotation = Quaternion.Euler(0, (scale < 0) ? -95 : 95, 0);
-        transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        //transform.parent.localScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, scale);
-        playerControler._objectLedgeDetection.canDetected = false;
+        Vector3 positionToLookAT;
+        positionToLookAT.x = moveDirection.x;
+        positionToLookAT.y = 0.0f;
+        positionToLookAT.z = moveDirection.z;
+        Quaternion currentRotation = transform.parent.rotation;
+        
+
+        if(moveX != 0 || moveZ != 0)
+        {
+            animator.SetBool("isMoving", true);
+            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAT);
+            transform.parent.rotation  =  Quaternion.Slerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 }
