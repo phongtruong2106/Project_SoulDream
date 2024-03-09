@@ -7,6 +7,7 @@ public class KeyHolder : NewMonoBehaviour
 {
     public event EventHandler OnKeysChanged;
     public static KeyHolder instance;
+    public bool isOpen = true;
     private List<Key.KeyType> keyList;
 
     [SerializeField] protected UIController uIController;
@@ -16,10 +17,19 @@ public class KeyHolder : NewMonoBehaviour
         this.LoadUIController();
     }
 
-    protected virtual void Update()
-    {
-       // this.uIController._uI_Dialogue.Invoke("StopDialogue", 4f);
-    }
+    // protected virtual void FixedUpdate()
+    // {
+    //     this.OpenDoor();
+    // }
+
+    // protected virtual void OpenDoor()
+    // {
+    //     if(!isOpen)
+    //     {
+    //         uIController._dialogueNew.OpenDialogue();
+    //         isOpen = true;
+    //     }
+    // }
     protected virtual void LoadUIController()
     {
         if(this.uIController!= null) return;
@@ -58,7 +68,7 @@ public class KeyHolder : NewMonoBehaviour
 
     protected virtual void CheckForFKey(Collider collider)
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             HandleFKeyPressed(collider);
         }

@@ -63,7 +63,7 @@ public class ObstaclePush : NewMonoBehaviour
 
     protected virtual void CheckMove()
     {
-        if (Input.GetAxisRaw("Horizontal") == 0)
+        if (Input.GetAxisRaw("Horizontal") == 0 || Input.GetAxisRaw("Vertical") == 0)
         {
             animator.SetBool("isPush", false);
             turn = false;

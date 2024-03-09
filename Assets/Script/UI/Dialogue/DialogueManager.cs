@@ -49,10 +49,9 @@ public class DialogueManager : NewMonoBehaviour
     {
        if(dialogueIsPlaying)
         {
-            // Đảm bảo rằng currentStory không null trước khi tiếp tục
             if(currentStory != null && currentStory.canContinue)
             {
-                // Gọi phương thức ContinueStory() sau 7 giây
+
                 Invoke("ContinueStory", 3f);
             }
             else

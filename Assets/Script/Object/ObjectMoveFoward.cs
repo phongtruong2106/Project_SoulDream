@@ -43,10 +43,10 @@ public class ObjectMoveFoward : ObjectMovement
             velocity.y = -2f;
         }
         moveX = Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f ? 0f : Input.GetAxis("Horizontal");
-        moveY = Mathf.Abs(Input.GetAxis("Vertical")) < 0.01f ? 0f : Input.GetAxis("Vertical");
+        moveZ = Mathf.Abs(Input.GetAxis("Vertical")) < 0.01f ? 0f : Input.GetAxis("Vertical");
         float zScale = Mathf.Abs(transform.localScale.z);
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
-        moveDirection = new Vector3(moveX, 0, 0);
+        moveDirection = new Vector3(moveX, 0, moveZ);
         
         if(isMove)
         {
@@ -92,18 +92,18 @@ public class ObjectMoveFoward : ObjectMovement
             velocity.y += gravity *  Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
 
-            if(moveX != 0 || moveY != 0)
+            if(moveX != 0 || moveZ != 0)
             {
                 animator.SetBool("isMoving", true);
                 if (isMove && moveDirection != previousMoveDirection)
                 {
                     if (moveDirection.x < 0)
                     {
-                        Flip(-zScale);
+                        FlipX(-zScale);
                     }
                     else
                     {
-                        Flip(zScale);
+                        FlipX(zScale);
                     }
                 }
 
@@ -116,8 +116,6 @@ public class ObjectMoveFoward : ObjectMovement
             }
         }
     }
-    
-
     protected virtual void Run()
     {
         moveSpeed = runSpeed;     
@@ -142,7 +140,7 @@ public class ObjectMoveFoward : ObjectMovement
         }
     }
 
-    protected virtual void Flip(float scale)
+    protected virtual void FlipX(float scale)
     {
         Quaternion targetRotation = Quaternion.Euler(0, (scale < 0) ? -95 : 95, 0);
         transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, targetRotation, rotationSpeed * Time.deltaTime);

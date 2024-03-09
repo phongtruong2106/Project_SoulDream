@@ -23,8 +23,8 @@ public class ObjectMovement : NewMonoBehaviour
 
     protected float moveX;
     public float _moveX => moveX;
-    protected float moveY;
-    public float _moveY => moveY;
+    protected float moveZ;
+    public float _moveZ => moveZ;
 
     protected override void ResetValue()
     {
