@@ -9,6 +9,9 @@ public class DialogueManager : NewMonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI dialogueNameText;
+    
+    private const string SPEAKER_TAG = "speaker";
 
     protected Story currentStory;
     protected bool dialogueIsPlaying;
@@ -43,23 +46,7 @@ public class DialogueManager : NewMonoBehaviour
         {
             return;
         }     
-        this.AutoContinueDialogue();
-    }
-    protected virtual void AutoContinueDialogue()
-    {
-       if(dialogueIsPlaying)
-        {
-            if(currentStory != null && currentStory.canContinue)
-            {
-
-                Invoke("ContinueStory", 3f);
-            }
-            else
-            {
-                ExitDialogueMode();
-            }
-        }
-        
+        Invoke("ContinueStory", 3f);
     }
 
     public void EnterDialogueMode(TextAsset inkJson)
@@ -85,10 +72,35 @@ public class DialogueManager : NewMonoBehaviour
         if(currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
+            HandleTags(currentStory.currentTags);
         }
         else
         {
             StartCoroutine(ExitDialogueMode()); 
+        }
+    }
+
+    private void HandleTags(List<string> currentTags)
+    {
+        foreach(string tag in currentTags)
+        {
+            string[] splitTag = tag.Split(':');
+            if(splitTag.Length != 2)
+            {
+                Debug.LogError("Tag could not be appropriately parsed: " + tag);
+            }
+             string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+
+            switch(tagKey)
+            {
+                case SPEAKER_TAG:
+                    dialogueNameText.text = tagValue;
+                    break;
+                default:
+                    Debug.LogWarning("tag came in but is not currently being handle: " + tag);
+                    break;
+            }
         }
     }
 }
