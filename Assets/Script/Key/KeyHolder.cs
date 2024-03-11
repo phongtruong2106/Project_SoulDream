@@ -16,20 +16,6 @@ public class KeyHolder : NewMonoBehaviour
         base.LoadComponents();
         this.LoadUIController();
     }
-
-    // protected virtual void FixedUpdate()
-    // {
-    //     this.OpenDoor();
-    // }
-
-    // protected virtual void OpenDoor()
-    // {
-    //     if(!isOpen)
-    //     {
-    //         uIController._dialogueNew.OpenDialogue();
-    //         isOpen = true;
-    //     }
-    // }
     protected virtual void LoadUIController()
     {
         if(this.uIController!= null) return;

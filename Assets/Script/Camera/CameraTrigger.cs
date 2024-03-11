@@ -35,8 +35,14 @@ public class CameraTrigger : NewMonoBehaviour
             cameraController.followSpeed = followSpeed;
             cameraController.xRosOffset = this.xRosOffset;
             cameraController.yRosOffset = this.yRosOffset;
-            cameraController.targetDefaul = this.targetPoint;
-
+            if(this.targetPoint != null)
+            {
+                cameraController.targetDefaul = this.targetPoint;
+            }
+            else
+            {
+                cameraController.targetDefaul = cameraController.targetPlayer;
+            }
         }
     }
 

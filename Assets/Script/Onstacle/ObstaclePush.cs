@@ -4,14 +4,9 @@ using UnityEngine;
 public class ObstaclePush : NewMonoBehaviour
 {
     [SerializeField] protected float forceMagnitude;
-    [SerializeField] protected bool isCanInput;
-    [SerializeField] protected bool isPushing = false;
     [SerializeField] protected Animator animator;
-    [SerializeField] protected LayerMask layerMask;
-    [SerializeField] protected float MAXDIS;
     [SerializeField] protected bool turn = false;
     [SerializeField] protected PlayerControler playerControler;
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -27,6 +22,7 @@ public class ObstaclePush : NewMonoBehaviour
 
     private void Update() {
         this.CheckRaycast();
+        this.IsLayAnimation();
     }
     protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -35,10 +31,16 @@ public class ObstaclePush : NewMonoBehaviour
             {
                 if(turn == true)
                 {
+                    rigidbody.isKinematic = false;
                     Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
                     forceDirection.y = 0;
                     forceDirection.Normalize();
                     rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
+                    
+                }
+                else
+                {
+                    rigidbody.isKinematic = true;
                 }
             }
         
@@ -53,20 +55,27 @@ public class ObstaclePush : NewMonoBehaviour
                 turn = true;
                 animator.SetBool("isPush", true);
             }
-            else
-            {
-                turn = false;
-            }
             this.CheckMove();
+        }
+        else
+        {
+            turn = false;
         }
     }
 
-    protected virtual void CheckMove()
+    protected virtual void IsLayAnimation()
     {
-        if (Input.GetAxisRaw("Horizontal") == 0 || Input.GetAxisRaw("Vertical") == 0)
+        if(turn == false)
         {
             animator.SetBool("isPush", false);
-            turn = false;
+        }
+    }
+    protected virtual void CheckMove()
+    {
+        if (playerControler._objectMovement.isMovel == false || playerControler._objectMovement.isGrounded == false)
+        {
+            animator.SetBool("isPush", false);
+            turn = false;   
         }
     }
 }

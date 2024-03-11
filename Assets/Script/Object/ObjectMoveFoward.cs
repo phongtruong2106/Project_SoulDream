@@ -33,8 +33,20 @@ public class ObjectMoveFoward : ObjectMovement
     private void Update() {
         Move();
         Jump();
+        IsMove();
     }
 
+    public virtual void IsMove()
+    {
+        if(moveX == 0 && moveZ == 0) 
+        {
+            isMovel = false;
+        }
+        else
+        {
+            isMovel = true;
+        }
+    }
     protected virtual void Move()
     {
         isGrounded = Physics.CheckSphere(transform.parent.position, groundCheckDistance, groundMask);
@@ -50,7 +62,6 @@ public class ObjectMoveFoward : ObjectMovement
         
         if(isMove)
         {
-
             if(isGrounded)
             {
                 animator.SetTrigger("Land");
@@ -131,6 +142,7 @@ public class ObjectMoveFoward : ObjectMovement
             animator.SetBool("isMoving", true);
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAT);
             transform.parent.rotation  =  Quaternion.Slerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
+            playerControler._objectLedgeDetection.canDetected = false;
         }
     }
 }

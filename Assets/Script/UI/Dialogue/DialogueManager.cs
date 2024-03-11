@@ -4,10 +4,11 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 public class DialogueManager : NewMonoBehaviour
 {
     [Header("Dialogue UI")]
-    [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] public GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI dialogueNameText;
     
@@ -42,6 +43,7 @@ public class DialogueManager : NewMonoBehaviour
 
     protected virtual void Update()
     {
+
         if(!dialogueIsPlaying)
         {
             return;
@@ -51,6 +53,7 @@ public class DialogueManager : NewMonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJson)
     {
+
         currentStory = new Story(inkJson.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
@@ -60,6 +63,7 @@ public class DialogueManager : NewMonoBehaviour
 
     public IEnumerator ExitDialogueMode()
     {
+
         yield return new WaitForSeconds(2f);
 
         dialogueIsPlaying = false;

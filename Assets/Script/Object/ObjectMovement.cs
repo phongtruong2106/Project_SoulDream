@@ -15,6 +15,7 @@ public class ObjectMovement : NewMonoBehaviour
     protected Vector3 velocity;
     public bool isGrounded;
     public bool isMove = true;
+    public bool isMovel = true;
 
     [SerializeField] protected float groundCheckDistance;
     [SerializeField] protected LayerMask groundMask;
@@ -36,4 +37,5 @@ public class ObjectMovement : NewMonoBehaviour
         this.gravity = -9.81f;
         this.jumpHeight = 2;
     }
+
 }
