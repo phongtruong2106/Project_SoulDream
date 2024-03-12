@@ -37,8 +37,12 @@ public class DialogueManager : NewMonoBehaviour
     protected override void Start()
     {
         base.Start();
-        dialogueIsPlaying = false;
-        dialoguePanel.SetActive(false);
+        if(dialoguePanel != null)
+        {
+            dialogueIsPlaying = false;
+            dialoguePanel.SetActive(false);
+        }
+        
     }
 
     protected virtual void Update()
