@@ -3,14 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class KeyHolder : NewMonoBehaviour
 {
     public event EventHandler OnKeysChanged;
     public static KeyHolder instance;
     public bool isOpen = true;
     private List<Key.KeyType> keyList;
-
+    [SerializeField]private Camera mainCamera;
     [SerializeField] protected UIController uIController;
+    public static KeyHolder Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<KeyHolder>();
+                if (instance == null)
+                {
+                    GameObject obj = new GameObject("KeyHolder");
+                    instance = obj.AddComponent<KeyHolder>();
+                }
+            }
+            return instance;
+        }
+    }
+    protected override void Start()
+    {
+        base.Start();
+        mainCamera = Camera.main;
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+        keyList = new List<Key.KeyType>();
+        // if(KeyHolder.instance != null) Debug.LogError("Only 1 KeyHolder allow to ");
+        // KeyHolder.instance = this;
+    }
+    private void Update() {
+        this.OnClickMouse();
+    }
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -26,13 +58,6 @@ public class KeyHolder : NewMonoBehaviour
     public List<Key.KeyType> GetKeyList()
     {
         return keyList;
-    }
-    protected override void Awake()
-    {
-        base.Awake();
-        keyList = new List<Key.KeyType>();
-        if(KeyHolder.instance != null) Debug.LogError("Only 1 KeyHolder allow to ");
-        KeyHolder.instance = this;
     }
     protected virtual void AddKey(Key.KeyType keyType)
     {
@@ -157,5 +182,34 @@ public class KeyHolder : NewMonoBehaviour
     protected virtual void UnHideObje()
     {
         uIController._uI_PressButton.CloseObjPress();
+    }
+
+    protected virtual void OnClickMouse()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                HandleClick(hit.collider.gameObject);
+            }
+        }
+    }
+
+    private void HandleClick(GameObject clickedObject)
+    {
+        Key key = clickedObject.GetComponent<Key>();
+        if (key != null)
+        {
+            AddKey(key.GetKeyType());
+            LockManager.Instance.isPickKey = true;
+            Destroy(key.transform.parent.gameObject);
+        }
+        else
+        {
+            UnHideObje();
+        }
     }
 }

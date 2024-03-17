@@ -3,7 +3,7 @@ using UnityEngine;
 public class ZoomOnClick : Zoom
 {   
     [Header("Zoom OnClick")]
-    [SerializeField] protected bool isClick;
+    public bool isClick;
     protected override void Start() {
         this.isClick = false;
     }
@@ -12,28 +12,16 @@ public class ZoomOnClick : Zoom
     {
         this.CheckClick();
         this.PressKeyExitZoom();
-    }
-    protected virtual void ZoomTarget()
-    {
-        cameraController.zoom = zoom;
-        cameraController.xOffset = xoffset;
-        cameraController.yOffset = yOffset;
-        cameraController.followSpeed = followSpeed;
-        cameraController.xRosOffset = this.xRosOffset;
-        cameraController.yRosOffset = this.yRosOffset;
-        if(this.targetPoint != null)
-        {
-            cameraController.targetDefaul = this.targetPoint;
-        }
-        else
-        {
-            cameraController.targetDefaul = cameraController.targetPlayer;
-        }
+        this.ChangeOnClickStateBool();
     }
 
     protected virtual void OnMouseDown()
     {
-        this.isClick = true;
+        if(!LockManager.Instance.isAfterOpenLock)
+        {
+            this.isClick  = true;
+        }
+        
     }
 
     protected virtual void CheckClick()
@@ -49,6 +37,13 @@ public class ZoomOnClick : Zoom
         {
             this.DefaultZoomTarget();
             this.isClick = false;
+        }
+    }
+    protected virtual void ChangeOnClickStateBool()
+    {
+        if(LockManager.Instance.isAfterOpenLock)
+        {
+            this.isClick  = false;
         }
     }
 }

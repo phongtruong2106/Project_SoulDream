@@ -46,22 +46,4 @@ public class ZoomPressKey : Zoom
             }           
         }   
     }
-    
-    protected virtual void ZoomTarget()
-    {
-        cameraController.zoom = zoom;
-        cameraController.xOffset = xoffset;
-        cameraController.yOffset = yOffset;
-        cameraController.followSpeed = followSpeed;
-        cameraController.xRosOffset = this.xRosOffset;
-        cameraController.yRosOffset = this.yRosOffset;
-        if(this.targetPoint != null)
-        {
-            cameraController.targetDefaul = this.targetPoint;
-        }
-        else
-        {
-            cameraController.targetDefaul = cameraController.targetPlayer;
-        }
-    }
 }

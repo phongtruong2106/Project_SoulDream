@@ -2,16 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LockControl : MonoBehaviour
+public class LockControl : NewMonoBehaviour
 {
+    [Header("LockControl")]
     private int[] result, correctCombination;
-    private bool isOpened;
-    private void Start()
+    public bool isOpened;
+    [SerializeField] protected Animator animator;
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadAnimator();
+    }
+
+    protected virtual void LoadAnimator()
+    {
+         if(this.animator != null) return;
+        this.animator = transform.parent.GetComponent<Animator>();
+        Debug.Log(transform.name + ": LoadObjectPushDetected()", gameObject);
+    }
+
+    protected override void Start()
     {
         result = new int[]{0,0,0,0};
         correctCombination = new int[] {6,7,8,4};
         isOpened = false;
         Rotate.Rotated += CheckResults;
+    }
+
+    private void Update() {
+        this.ISOpen();
     }
 
     private void CheckResults(string wheelName, int number)
@@ -39,12 +58,22 @@ public class LockControl : MonoBehaviour
             && result[2] == correctCombination[2] && result[3] == correctCombination[3] && !isOpened)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
-            isOpened = true;
+            LockManager.Instance.isOpenLock = true;
         }
     }
 
-    private void OnDestroy()
+    private void ISOpen()
     {
-        Rotate.Rotated -= CheckResults;
+        if(LockManager.Instance.isOpenLock)
+        {
+            animator.SetTrigger("IsOpen");
+            LockManager.Instance.isAfterOpenLock = true;
+            Invoke("DestroyLock", 1);
+        }
+    }
+
+    protected virtual void DestroyLock()
+    {
+        if(LockManager.Instance.isAfterOpenLock) Destroy(transform.parent.parent.gameObject);
     }
 }

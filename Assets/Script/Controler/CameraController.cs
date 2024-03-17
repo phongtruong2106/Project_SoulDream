@@ -46,13 +46,20 @@ public class CameraController : NewMonoBehaviour
 
     protected virtual void Position()
     {
-        targetPosition = new Vector3(targetDefaul.transform.position.x + xOffset, targetDefaul.transform.position.y + yOffset, zoom);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+        if(this.targetPlayer != null)
+        {
+            targetPosition = new Vector3(targetDefaul.transform.position.x + xOffset, targetDefaul.transform.position.y + yOffset, zoom);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+        }
+        
     }
 
     protected virtual void Rotation()
     {
-        targetRotation = Quaternion.Euler(targetDefaul.transform.rotation.x + xRosOffset, targetDefaul.transform.rotation.y + yRosOffset, targetDefaul.transform.rotation.z);
-         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, followSpeed * Time.deltaTime);
+        if(this.targetPlayer != null)
+        {
+            targetRotation = Quaternion.Euler(targetDefaul.transform.rotation.x + xRosOffset, targetDefaul.transform.rotation.y + yRosOffset, targetDefaul.transform.rotation.z);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, followSpeed * Time.deltaTime);
+        }
     }
 }
