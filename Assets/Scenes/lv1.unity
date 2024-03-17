@@ -2207,12 +2207,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e6d0395182fb140ab84038b483b2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoom: 0
-  xoffset: 0
-  yOffset: 0
-  xRosOffset: 0
-  yRosOffset: 0
-  followSpeed: 0
+  zoom: 1.28
+  xoffset: 0.02
+  yOffset: 0.75
+  xRosOffset: 28.5
+  yRosOffset: 3.42
+  followSpeed: 5
   cameraController: {fileID: 963194229}
   targetPoint: {fileID: 473260386}
 --- !u!65 &473260389
@@ -2234,8 +2234,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5760653, y: 1, z: 1}
-  m_Center: {x: -0.28803265, y: 0, z: 8.052434e-11}
+  m_Size: {x: 1.9423931, y: 1.9170449, z: 1}
+  m_Center: {x: -0.47119653, y: -0.78209174, z: 5.397871e-11}
 --- !u!1 &572194270
 GameObject:
   m_ObjectHideFlags: 0
@@ -13907,6 +13907,8 @@ GameObject:
   - component: {fileID: 473776526817998430}
   - component: {fileID: 2277804048068316138}
   - component: {fileID: 7314442228542299593}
+  - component: {fileID: 7314442228542299595}
+  - component: {fileID: 7314442228542299594}
   m_Layer: 0
   m_Name: LockBody
   m_TagString: Untagged
@@ -13926,6 +13928,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2184989c72cb7d847bcdf8822b7719fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7314442228542299594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314442228542299592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d077a05d8342341bc77143e4c573ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoom: 1.93
+  xoffset: 0.09
+  yOffset: 0
+  xRosOffset: 0.1
+  yRosOffset: -51.5
+  followSpeed: 5
+  cameraController: {fileID: 963194229}
+  targetPoint: {fileID: 1849948925}
+  isClick: 0
+--- !u!64 &7314442228542299595
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314442228542299592}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2873273236562491978, guid: 3c993d20014aa854291047a5e5f70f97, type: 3}
 --- !u!1 &7365357687541910847
 GameObject:
   m_ObjectHideFlags: 0

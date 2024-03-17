@@ -64,15 +64,4 @@ public class ZoomPressKey : Zoom
             cameraController.targetDefaul = cameraController.targetPlayer;
         }
     }
-
-    protected virtual void DefaultZoomTarget()
-    {
-        cameraController.zoom = cameraController._defaultZoom;
-        cameraController.xOffset = cameraController.defaultxOffset;
-        cameraController.yOffset = cameraController.defaultyOffset;
-        cameraController.followSpeed = cameraController.defaulFollowSpeed;
-        cameraController.targetDefaul = cameraController.targetPlayer;
-        cameraController.xRosOffset = 0;
-        cameraController.yRosOffset = 0;
-    }
 }

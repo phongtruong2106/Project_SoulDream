@@ -3,9 +3,15 @@ using UnityEngine;
 public class ZoomOnClick : Zoom
 {   
     [Header("Zoom OnClick")]
-    protected bool isClick;
+    [SerializeField] protected bool isClick;
     protected override void Start() {
         this.isClick = false;
+    }
+
+    protected void Update()
+    {
+        this.CheckClick();
+        this.PressKeyExitZoom();
     }
     protected virtual void ZoomTarget()
     {
@@ -27,10 +33,22 @@ public class ZoomOnClick : Zoom
 
     protected virtual void OnMouseDown()
     {
-        
         this.isClick = true;
-        Debug.Log("adsad");
-        //this.ZoomTarget();
     }
-    
+
+    protected virtual void CheckClick()
+    {
+        if(isClick)
+        {
+            this.ZoomTarget();
+        }
+    }
+    protected virtual void PressKeyExitZoom()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            this.DefaultZoomTarget();
+            this.isClick = false;
+        }
+    }
 }
