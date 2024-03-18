@@ -6,13 +6,14 @@ public class PlayerControler : NewMonoBehaviour
     public static PlayerControler instance;
     [SerializeField] protected ObjectMovement objectMovement;
     public ObjectMovement _objectMovement => objectMovement;
+    [SerializeField] protected ObjectMoveFoward objectMoveFoward;
+    public ObjectMoveFoward _objectMoveFoward => objectMoveFoward;
     [SerializeField] protected ObjectLedgeClimb objectLedgeClimb;
     public ObjectLedgeClimb _objectLedgeClimb => objectLedgeClimb;
     [SerializeField] protected ObjectLedgeDetection objectLedgeDetection;
     public ObjectLedgeDetection _objectLedgeDetection => objectLedgeDetection;
     [SerializeField] protected ObjectPushDetected objectPushDetected;
     public ObjectPushDetected _objectPushDetected => objectPushDetected;
-    //[SerializeField] protected Animator  animator;
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +28,7 @@ public class PlayerControler : NewMonoBehaviour
         this.LoadObjectLedgeClimb();
         this.LoadObjectLedgeDetection();
         this.LoadObjectPushDetected();
+        this.LoadObjectMoveFoward();
         //this.LoadAnimator();
     }
 
@@ -35,6 +37,13 @@ public class PlayerControler : NewMonoBehaviour
         if(this.objectMovement != null) return;
         this.objectMovement = GetComponentInChildren<ObjectMovement>();
         Debug.Log(transform.name + ": LoadObjectMovement()", gameObject);
+    }
+
+    protected virtual void LoadObjectMoveFoward()
+    {
+        if(this.objectMoveFoward != null) return;
+        this.objectMoveFoward = GetComponentInChildren<ObjectMoveFoward>();
+        Debug.Log(transform.name + ": LoadObjectMoveFoward()", gameObject);
     }
 
     protected virtual void LoadObjectLedgeClimb()

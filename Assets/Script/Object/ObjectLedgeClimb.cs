@@ -7,12 +7,24 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     [SerializeField] protected Transform targetPointBegun;
     [SerializeField] protected Transform targetPointOver;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected PlayerControler playerControler;
     private bool canClimbLedge = false;
     private bool canGrabLedge = true;
     private Vector3 TargetPoint1;
     private Vector3 TargetPoint2;
     [HideInInspector] public bool ledgeDetected;
 
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadPlayerController();
+    }
+    protected virtual void LoadPlayerController()
+    {
+        if(this.playerControler != null) return;
+        this.playerControler = transform.parent.GetComponent<PlayerControler>();
+        Debug.Log(transform.name + ": LoadPlayerController()", gameObject);
+    }
     private void Update() {
         CheckForLedge();
         AnimationController();
@@ -23,7 +35,9 @@ public class ObjectLedgeClimb : NewMonoBehaviour
         {
             canGrabLedge = false;
             canClimbLedge = true;
-
+            animator.applyRootMotion = true;
+            playerControler._objectMoveFoward._characterController.enabled = false;
+            
             TargetPoint1 = new Vector3(targetPointBegun.position.x, targetPointBegun.position.y);
             TargetPoint2 = new Vector3(targetPointOver.position.x, targetPointOver.position.y);
 
@@ -32,7 +46,7 @@ public class ObjectLedgeClimb : NewMonoBehaviour
         
         if(canClimbLedge)
         {
-            transform.parent.position = TargetPoint1;   
+            gameObject.transform.parent.position = TargetPoint1;   
             PlayerControler.instance._objectMovement.isGrounded = true;
         }
     }
@@ -40,8 +54,11 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     public void LedgeClimbOver()
     {
         canClimbLedge = false;
-        ledgeDetected = false;
         transform.parent.position = TargetPoint2;
+        animator.applyRootMotion = false;
+        ledgeDetected = false;
+        playerControler._objectMoveFoward._characterController.enabled = true;
+        animator.SetBool("isClimbLedge", canClimbLedge);
         PlayerControler.instance._objectMovement.isMove = true;
         Invoke("AllowLedgeGrab", 0.1f);
     }

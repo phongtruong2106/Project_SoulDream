@@ -4,11 +4,12 @@ public class ObjectMoveFoward : ObjectMovement
 {
     [Header("ObjectMoveFoward")]
     [SerializeField] protected CharacterController controller;
+    public CharacterController _characterController => controller;
     [SerializeField] protected Animator animator;
     [SerializeField] protected bool isJumping;
     [SerializeField] protected PlayerControler playerControler;
     [SerializeField] protected float rotationSpeed = 10f;
-
+    protected bool isFlipped = false;
     protected Vector3 previousMoveDirection;
     protected override void LoadComponents()
     {
@@ -34,6 +35,7 @@ public class ObjectMoveFoward : ObjectMovement
         Move();
         Jump();
         IsMove();
+        this.CheckCanDetected();
     }
 
     public virtual void IsMove()
@@ -97,8 +99,6 @@ public class ObjectMoveFoward : ObjectMovement
                     animator.SetBool("isFalling", true);
                 }
             }
-
-            
             controller.Move(moveDirection * Time.deltaTime);
             velocity.y += gravity *  Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
@@ -135,13 +135,17 @@ public class ObjectMoveFoward : ObjectMovement
         positionToLookAT.y = 0.0f;
         positionToLookAT.z = moveDirection.z;
         Quaternion currentRotation = transform.parent.rotation;
-        
-
         if(moveX != 0 || moveZ != 0)
         {
             animator.SetBool("isMoving", true);
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAT);
             transform.parent.rotation  =  Quaternion.Slerp(currentRotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+    protected virtual void CheckCanDetected()
+    {
+        if(moveDirection.x != 0 || moveDirection.z != 0)
+        {
             playerControler._objectLedgeDetection.canDetected = false;
         }
     }
