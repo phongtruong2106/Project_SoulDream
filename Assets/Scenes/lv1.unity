@@ -1664,8 +1664,8 @@ Transform:
   m_GameObject: {fileID: 220955361}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.02}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5315}
+  m_LocalScale: {x: 2, y: 2, z: 5.023}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1645455115}
@@ -6805,8 +6805,10 @@ MonoBehaviour:
   enemyController: {fileID: 1822638092}
   agent: {fileID: 1822638093}
   player: {fileID: 39932605}
-  rotationSpeed: 0
-  speed: 3
+  detectionRadius: 2
+  handPosition: {fileID: 8014980}
+  isMove: 1
+  animator: {fileID: 1822638094}
 --- !u!1 &1729293952
 GameObject:
   m_ObjectHideFlags: 0
@@ -7166,6 +7168,7 @@ GameObject:
   - component: {fileID: 1822638091}
   - component: {fileID: 1822638092}
   - component: {fileID: 1822638093}
+  - component: {fileID: 1822638094}
   m_Layer: 0
   m_Name: NPC_Puzzel_1
   m_TagString: Untagged
@@ -7227,6 +7230,27 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &1822638094
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822638090}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6df390426a7394546be8f39490aab056, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1830709655
 GameObject:
   m_ObjectHideFlags: 0
