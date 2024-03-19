@@ -8,12 +8,14 @@ public class ObjectLedgeDetection : NewMonoBehaviour
     [SerializeField] protected Transform checkWall;
     public ObjectLedgeClimb objectLedgeClimb;
     public bool canDetected = false;
+    public Vector3 objPosition;
     private void FixedUpdate() {
         this.IsCanDetected();
     }
     protected virtual void OnTriggerExit(Collider collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             canDetected = true;
+            
         }
     }
 
@@ -21,7 +23,8 @@ public class ObjectLedgeDetection : NewMonoBehaviour
         if(other.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             canDetected = false;
-        }
+            objPosition = other.transform.parent.gameObject.transform.GetComponent<Transform>().position;
+        }   
     }
 
     protected virtual void OnDrawGizmos() {

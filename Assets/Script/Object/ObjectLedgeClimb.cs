@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ObjectLedgeClimb : NewMonoBehaviour 
@@ -28,6 +29,7 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     private void Update() {
         CheckForLedge();
         AnimationController();
+     
     }
     private void CheckForLedge()
     {
@@ -35,18 +37,20 @@ public class ObjectLedgeClimb : NewMonoBehaviour
         {
             canGrabLedge = false;
             canClimbLedge = true;
-            animator.applyRootMotion = true;
-            playerControler._objectMoveFoward._characterController.enabled = false;
-            
+            //animator.applyRootMotion = true;
             TargetPoint1 = new Vector3(targetPointBegun.position.x, targetPointBegun.position.y);
             TargetPoint2 = new Vector3(targetPointOver.position.x, targetPointOver.position.y);
-
+            playerControler._objectMoveFoward._characterController.enabled = false;
             PlayerControler.instance._objectMovement.isMove = false;
         }
         
         if(canClimbLedge)
         {
-            gameObject.transform.parent.position = TargetPoint1;   
+             if (!animator.IsInTransition(0))
+            {
+                animator.MatchTarget(TargetPoint1, Quaternion.identity, AvatarTarget.Root,
+                                    new MatchTargetWeightMask(Vector3.one, 0), 0.1f, 0.5f);
+            }
             PlayerControler.instance._objectMovement.isGrounded = true;
         }
     }
@@ -54,10 +58,14 @@ public class ObjectLedgeClimb : NewMonoBehaviour
     public void LedgeClimbOver()
     {
         canClimbLedge = false;
-        transform.parent.position = TargetPoint2;
-        animator.applyRootMotion = false;
         ledgeDetected = false;
+        if (!animator.IsInTransition(0))
+        {
+            animator.MatchTarget(TargetPoint2, Quaternion.identity, AvatarTarget.Root,
+                                new MatchTargetWeightMask(Vector3.one, 0), 0.1f, 0.5f);
+        }
         playerControler._objectMoveFoward._characterController.enabled = true;
+        animator.applyRootMotion = false;
         animator.SetBool("isClimbLedge", canClimbLedge);
         PlayerControler.instance._objectMovement.isMove = true;
         Invoke("AllowLedgeGrab", 0.1f);
@@ -67,4 +75,5 @@ public class ObjectLedgeClimb : NewMonoBehaviour
         animator.SetBool("isClimbLedge", canClimbLedge);
     }
     private void AllowLedgeGrab() => canGrabLedge = true;
+
 }

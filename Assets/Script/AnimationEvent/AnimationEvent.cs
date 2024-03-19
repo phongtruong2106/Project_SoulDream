@@ -17,7 +17,6 @@ public class AnimationEvent : NewMonoBehaviour
     }
     public void HandleLedgeClimbOver()
     {
-        playerControler._objectLedgeClimb.LedgeClimbOver();
-        //Debug.Log("adwq");
+       playerControler._objectLedgeClimb.LedgeClimbOver();
     }
 }
