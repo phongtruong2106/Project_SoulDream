@@ -8,9 +8,9 @@ public class EnemyMovement : Enemy
     [SerializeField] protected float detectionRadius;
     [SerializeField] protected Transform handPosition;
     [SerializeField] protected bool isMove = true;
+    public bool _isMove => isMove;
     [SerializeField] protected Animator animator;
-
-
+    [SerializeField] protected Vector3 position; 
     private void Update() {
         this.CheckPlayerInArea();
         this.CheckTouchPlayerMove();
@@ -34,8 +34,10 @@ public class EnemyMovement : Enemy
         }
         if(!this.isMove)
         {
+            position = new Vector3(handPosition.position.x, handPosition.position.y/4, handPosition.position.z);
+            player.position = position;
             animator.SetTrigger("isHandUp");
-            player.position = handPosition.position;
+            
         }
     }
 

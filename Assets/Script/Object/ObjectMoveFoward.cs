@@ -9,6 +9,7 @@ public class ObjectMoveFoward : ObjectMovement
     [SerializeField] protected bool isJumping;
     [SerializeField] protected PlayerControler playerControler;
     [SerializeField] protected float rotationSpeed = 10f;
+    
     protected bool isFlipped = false;
     protected Vector3 previousMoveDirection;
     protected override void LoadComponents()
@@ -32,9 +33,9 @@ public class ObjectMoveFoward : ObjectMovement
     }
 
     private void Update() {
-        Move();
-        Jump();
-        IsMove();
+        this.Move();
+        this.Jump();
+        this.IsMove();
         this.CheckCanDetected();
     }
 
