@@ -45,7 +45,6 @@ public class EnemyMovement : Enemy
     {
         if(enemyController._enemy._objectCheckPlayer._isPlayer)
         {
-
             this.MoveTowardsPlayer();
         }
     }
