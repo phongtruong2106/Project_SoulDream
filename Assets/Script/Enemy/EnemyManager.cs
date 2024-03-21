@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyManager : NewMonoBehaviour
 {
-    [SerializeField] protected ObjectCheckPlayer objectCheckPlayer;
-    public ObjectCheckPlayer _objectCheckPlayer => objectCheckPlayer;
+    [SerializeField] protected ObjectCheckLiftPlayer objectCheckPlayer;
+    public ObjectCheckLiftPlayer _objectCheckPlayer => objectCheckPlayer;
+
 
     protected override void LoadComponents()
     {
@@ -16,7 +17,7 @@ public class EnemyManager : NewMonoBehaviour
      protected virtual void LoadObjectCheckPlayer()
     {
         if(this.objectCheckPlayer != null) return;
-        this.objectCheckPlayer = transform.GetComponentInChildren<ObjectCheckPlayer>();
+        this.objectCheckPlayer = transform.GetComponentInChildren<ObjectCheckLiftPlayer>();
         Debug.Log(transform.name + ": LoadObjectCheckPlayer()", gameObject);
     }
 }

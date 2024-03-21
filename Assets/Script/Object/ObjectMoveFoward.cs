@@ -10,6 +10,7 @@ public class ObjectMoveFoward : ObjectMovement
     [SerializeField] protected PlayerControler playerControler;
     [SerializeField] protected float rotationSpeed = 10f;
     
+    
     protected bool isFlipped = false;
     protected Vector3 previousMoveDirection;
     protected override void LoadComponents()

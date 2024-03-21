@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovement : Enemy
@@ -10,7 +11,8 @@ public class EnemyMovement : Enemy
     [SerializeField] protected bool isMove = true;
     public bool _isMove => isMove;
     [SerializeField] protected Animator animator;
-    [SerializeField] protected Vector3 position; 
+    [SerializeField] protected Vector3 position;
+    [SerializeField] protected Vector3 movePositon;
     private void Update() {
         this.CheckPlayerInArea();
         this.CheckTouchPlayerMove();
@@ -23,6 +25,9 @@ public class EnemyMovement : Enemy
             Vector3 directionToPlayer = player.position - transform.position;
             Vector3 targetPosition = player.position - directionToPlayer.normalized * detectionRadius;
             agent.SetDestination(targetPosition);
+            movePositon = new Vector3(transform.parent.position.x, transform.parent.position.y, transform.position.z);
+            float inputMagnitude = Mathf.Clamp01(movePositon.magnitude);
+            animator.SetFloat("IsMove", inputMagnitude);
         }
     }
     
@@ -32,12 +37,15 @@ public class EnemyMovement : Enemy
         {
             this.isMove = false;
         }
-        if(!this.isMove)
-        {
-            position = new Vector3(handPosition.position.x, handPosition.position.y/4, handPosition.position.z);
-            player.position = position;
-            animator.SetTrigger("isHandUp");
-            
+        if(enemyController._enemyCheckPlayer._isPlayer)
+        {   
+            animator.SetTrigger("isHandUp"); 
+            if(!this.isMove)
+            {
+                position = new Vector3(handPosition.position.x, handPosition.position.y/4, handPosition.position.z);
+                player.position = position;  
+            }
+
         }
     }
 
@@ -48,4 +56,5 @@ public class EnemyMovement : Enemy
             this.MoveTowardsPlayer();
         }
     }
+
 }

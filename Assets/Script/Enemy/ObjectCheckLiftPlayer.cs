@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectCheckPlayer : NewMonoBehaviour
+public class ObjectCheckLiftPlayer : NewMonoBehaviour
 {
     [SerializeField] protected bool isPlayer = false;
     public bool _isPlayer => isPlayer;
