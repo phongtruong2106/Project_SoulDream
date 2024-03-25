@@ -112,7 +112,8 @@ public class KeyHolder : NewMonoBehaviour
         if(key != null) 
         {
             AddKey(key.GetKeyType());
-            Destroy(key.transform.parent.gameObject);
+            key.transform.parent.gameObject.SetActive(false);
+           // Destroy(key.transform.parent.gameObject);
         }
         else
         {
@@ -205,7 +206,7 @@ public class KeyHolder : NewMonoBehaviour
         {
             AddKey(key.GetKeyType());
             LockManager.Instance.isPickKey = true;
-            Destroy(key.transform.parent.gameObject);
+            key.transform.parent.gameObject.SetActive(false);
         }
         else
         {
