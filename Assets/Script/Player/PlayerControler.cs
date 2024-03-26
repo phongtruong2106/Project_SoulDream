@@ -14,6 +14,8 @@ public class PlayerControler : NewMonoBehaviour
     public ObjectLedgeDetection _objectLedgeDetection => objectLedgeDetection;
     [SerializeField] protected ObjectPushDetected objectPushDetected;
     public ObjectPushDetected _objectPushDetected => objectPushDetected;
+    [SerializeField] protected Inventory inventory;
+    public Inventory _inventory => inventory;
     protected override void Awake()
     {
         base.Awake();
@@ -29,7 +31,7 @@ public class PlayerControler : NewMonoBehaviour
         this.LoadObjectLedgeDetection();
         this.LoadObjectPushDetected();
         this.LoadObjectMoveFoward();
-        //this.LoadAnimator();
+        this.LoadInventory();
     }
 
     protected virtual void LoadObjectMovement()
@@ -65,5 +67,11 @@ public class PlayerControler : NewMonoBehaviour
         if(this.objectPushDetected != null) return;
         this.objectPushDetected = transform.GetComponentInChildren<ObjectPushDetected>();
         Debug.Log(transform.name + ": LoadObjectPushDetected()", gameObject);
+    }
+    protected virtual void LoadInventory()
+    {
+        if(this.inventory != null) return;
+        this.inventory = FindAnyObjectByType<Inventory>();
+        Debug.Log(transform.name + ": LoadInventory()", gameObject);
     }
 }

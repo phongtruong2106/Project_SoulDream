@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class KeyDoor : NewMonoBehaviour
 {
-    [SerializeField] private Key.KeyType keyType;
+    [SerializeField] private ItemType itemType;
 
-    public Key.KeyType GetKeyType()
+    public ItemType GetKeyType()
     {
-        return keyType;
+        return itemType;
     }
 
     public void OpenDoor()

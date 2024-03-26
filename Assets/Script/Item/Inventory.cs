@@ -4,8 +4,10 @@ using UnityEngine;
 public class Inventory : NewMonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private List<Item> items = new List<Item>();
-    [SerializeField] protected Item item;
+    [SerializeField] private Dictionary<ItemType, int> itemDictionary = new Dictionary<ItemType, int>();
+    public Dictionary<ItemType, int> ItemsDictionary => itemDictionary;
+    private Item currentItemInSlot;
+    private KeyHolder keyHolder;
  
     private static Inventory instance;
     public static Inventory Instance => instance;
@@ -21,9 +23,18 @@ public class Inventory : NewMonoBehaviour
             instance = this;
         }
     }
-   public void AddItem(Item item)
+    public void AddItem(Item newItem)
     {
-        items.Add(item);
-        Debug.Log("Item added to inventory: " + item._itemSO.itemName);
+        if (currentItemInSlot != null)
+        {
+           // Destroy(currentItemInSlot.transform.parent.gameObject);
+            currentItemInSlot.transform.parent.gameObject.SetActive(true);
+            itemDictionary.Remove(currentItemInSlot._itemSO.itemType);
+        }
+        
+        itemDictionary[newItem._itemSO.itemType] = 1;
+        newItem.transform.parent.gameObject.SetActive(false);
+
+        currentItemInSlot = newItem;
     }
 }

@@ -12,6 +12,8 @@ public class KeyHolder : NewMonoBehaviour
     private List<Key.KeyType> keyList;
     [SerializeField]private Camera mainCamera;
     [SerializeField] protected UIController uIController;
+    [SerializeField] protected PlayerControler playerControler;
+    
     public static KeyHolder Instance
     {
         get
@@ -40,13 +42,12 @@ public class KeyHolder : NewMonoBehaviour
         // if(KeyHolder.instance != null) Debug.LogError("Only 1 KeyHolder allow to ");
         // KeyHolder.instance = this;
     }
-    private void Update() {
-        this.OnClickMouse();
-    }
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadUIController();
+        this.LoadPlayerController();
+
     }
     protected virtual void LoadUIController()
     {
@@ -55,9 +56,11 @@ public class KeyHolder : NewMonoBehaviour
         Debug.Log(transform.name + ": LoadUIController()", gameObject);
     }
 
-    public List<Key.KeyType> GetKeyList()
+    protected virtual void LoadPlayerController()
     {
-        return keyList;
+        if(this.playerControler != null) return;
+        this.playerControler = FindAnyObjectByType<PlayerControler>();
+        Debug.Log(transform.name + ": LoadPlayerController()", gameObject);
     }
     protected virtual void AddKey(Key.KeyType keyType)
     {
@@ -72,11 +75,6 @@ public class KeyHolder : NewMonoBehaviour
         OnKeysChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    protected virtual bool ContainsKey(Key.KeyType keyType)
-    {
-        return keyList.Contains(keyType);
-    }
-
     protected virtual void CheckForFKey(Collider collider)
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -87,8 +85,7 @@ public class KeyHolder : NewMonoBehaviour
 
     protected virtual void HandleFKeyPressed(Collider collider)
     {
-        this.Key(collider);
-        this.KeyDoor(collider);
+          this.KeyDoor(collider);
     }
 
     protected virtual void OnTriggerStay(Collider other)
@@ -97,7 +94,7 @@ public class KeyHolder : NewMonoBehaviour
     }    
     private void OnTriggerEnter(Collider other)
     {
-        this.CheckKeyOn(other);
+        // this.CheckKeyOn(other);
         this.CheckKeyDoorOn(other);
     }
 
@@ -106,29 +103,16 @@ public class KeyHolder : NewMonoBehaviour
         this.CheckKeyOut(other);
         this.CheckKeyDoorOut(other);
     }
-    protected virtual void Key(Collider collider)
-    {
-        Key key = collider.GetComponent<Key>();
-        if(key != null) 
-        {
-            AddKey(key.GetKeyType());
-            key.transform.parent.gameObject.SetActive(false);
-           // Destroy(key.transform.parent.gameObject);
-        }
-        else
-        {
-            this.UnHideObje();
-        }
-    }
 
     protected virtual void KeyDoor(Collider collider)
     {
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if(keyDoor != null)
         {
-            if(ContainsKey(keyDoor.GetKeyType()))
+            
+            if (playerControler._inventory.ItemsDictionary.ContainsKey(keyDoor.GetKeyType()))
             {
-                RemoveKey(keyDoor.GetKeyType());
+                
                 keyDoor.OpenDoor();
             }
             else
@@ -139,15 +123,6 @@ public class KeyHolder : NewMonoBehaviour
         else
         {
             this.UnHideObje();
-        }
-    }
-    protected virtual void CheckKeyOn(Collider collider)
-    {
-        Key key = collider.GetComponent<Key>();
-        if(key != null) 
-        {
-            this.HideObj();
-            uIController._uI_PressButton._text_ObjPress.text = "Press F to pick up";
         }
     }
     protected virtual void CheckKeyOut(Collider collider)
@@ -185,32 +160,4 @@ public class KeyHolder : NewMonoBehaviour
         uIController._uI_PressButton.CloseObjPress();
     }
 
-    protected virtual void OnClickMouse()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                HandleClick(hit.collider.gameObject);
-            }
-        }
-    }
-
-    private void HandleClick(GameObject clickedObject)
-    {
-        Key key = clickedObject.GetComponent<Key>();
-        if (key != null)
-        {
-            AddKey(key.GetKeyType());
-            LockManager.Instance.isPickKey = true;
-            key.transform.parent.gameObject.SetActive(false);
-        }
-        else
-        {
-            UnHideObje();
-        }
-    }
 }

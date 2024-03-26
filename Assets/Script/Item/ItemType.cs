@@ -3,6 +3,8 @@ public enum ItemType
 {
     glass,
     glassWater,
-    box,
+    KeyBox,
+    keyDoor,
+    able,
     NoType
 }

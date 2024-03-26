@@ -8,7 +8,6 @@ public class Item : NewMonoBehaviour
     private void OnMouseDown()
     {
         Inventory.Instance.AddItem(this);
-        Debug.Log("asd");
     }
 
 }
