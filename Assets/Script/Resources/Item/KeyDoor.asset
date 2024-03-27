@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4471d541968fb04a9e449298ab3884e, type: 3}
   m_Name: KeyDoor
   m_EditorClassIdentifier: 
-  itemType: 5
-  itemName: no-name
+  itemType: 3
+  itemName: Key Door

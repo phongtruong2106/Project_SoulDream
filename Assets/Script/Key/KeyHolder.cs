@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class KeyHolder : NewMonoBehaviour
 {
-    public event EventHandler OnKeysChanged;
     public static KeyHolder instance;
     public bool isOpen = true;
     private List<Key.KeyType> keyList;
@@ -39,8 +38,6 @@ public class KeyHolder : NewMonoBehaviour
     {
         base.Awake();
         keyList = new List<Key.KeyType>();
-        // if(KeyHolder.instance != null) Debug.LogError("Only 1 KeyHolder allow to ");
-        // KeyHolder.instance = this;
     }
     protected override void LoadComponents()
     {
@@ -62,19 +59,6 @@ public class KeyHolder : NewMonoBehaviour
         this.playerControler = FindAnyObjectByType<PlayerControler>();
         Debug.Log(transform.name + ": LoadPlayerController()", gameObject);
     }
-    protected virtual void AddKey(Key.KeyType keyType)
-    {
-        Debug.Log("Add key: " + keyType);
-        keyList.Add(keyType);
-        OnKeysChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    protected virtual void RemoveKey(Key.KeyType keyType)
-    {
-        keyList.Remove(keyType);
-        OnKeysChanged?.Invoke(this, EventArgs.Empty);
-    }
-
     protected virtual void CheckForFKey(Collider collider)
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -82,19 +66,18 @@ public class KeyHolder : NewMonoBehaviour
             HandleFKeyPressed(collider);
         }
     }
+    
 
     protected virtual void HandleFKeyPressed(Collider collider)
     {
           this.KeyDoor(collider);
     }
-
     protected virtual void OnTriggerStay(Collider other)
     {
         CheckForFKey(other);
     }    
     private void OnTriggerEnter(Collider other)
     {
-        // this.CheckKeyOn(other);
         this.CheckKeyDoorOn(other);
     }
 
@@ -108,12 +91,11 @@ public class KeyHolder : NewMonoBehaviour
     {
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if(keyDoor != null)
-        {
-            
+        {    
             if (playerControler._inventory.ItemsDictionary.ContainsKey(keyDoor.GetKeyType()))
-            {
-                
+            {             
                 keyDoor.OpenDoor();
+                playerControler._inventory.RemoveItemWithGameObject(keyDoor.GetKeyType());
             }
             else
             {

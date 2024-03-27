@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class UI_KeyHolder : UI
 {
+    [SerializeField] protected PlayerControler playerControler;
     protected override void Start()
     {
         base.Start();
-        keyHolder.OnKeysChanged += KeyHolder_OnKeysChanged;
+        playerControler._inventory.OnKeysChanged += KeyHolder_OnKeysChanged;
     }
 
     protected virtual void KeyHolder_OnKeysChanged(object sender, System.EventArgs e)
@@ -18,12 +19,11 @@ public class UI_KeyHolder : UI
     
     protected override void UpdateVisual()
     {
-        //  //clear up old key
-        // foreach(Transform child in container)
-        // {
-        //     if(child == Template) continue;
-        //     Destroy(child.gameObject);
-        // }
+        foreach(Transform child in container)
+        {
+            if(child == Template) continue;
+            Destroy(child.gameObject);
+        }
         // //
         // List<Key.KeyType> keyList = keyHolder.GetKeyList();
         // for(int i = 0; i < keyList.Count; i++)
