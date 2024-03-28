@@ -5297,6 +5297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyHolder: {fileID: 2079639328}
+  playerControler: {fileID: 39932607}
 --- !u!1 &1349060831
 GameObject:
   m_ObjectHideFlags: 0
