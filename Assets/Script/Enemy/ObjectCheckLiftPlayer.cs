@@ -6,7 +6,7 @@ public class ObjectCheckLiftPlayer : NewMonoBehaviour
     public bool _isPlayer => isPlayer;
     [SerializeField] protected LayerMask layerMask;
 
-    protected virtual void OnTriggerEnter(Collider collision)
+    protected virtual void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) isPlayer = true;
     }

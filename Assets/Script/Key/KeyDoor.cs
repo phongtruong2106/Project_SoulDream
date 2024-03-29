@@ -14,6 +14,5 @@ public class KeyDoor : NewMonoBehaviour
     public void OpenDoor()
     {
         DoorAnim.instance.OpenDoor();
-        
     }
 }

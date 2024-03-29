@@ -16,6 +16,12 @@ public class PlayerControler : NewMonoBehaviour
     public ObjectPushDetected _objectPushDetected => objectPushDetected;
     [SerializeField] protected Inventory inventory;
     public Inventory _inventory => inventory;
+    [SerializeField] protected ObjectClimbingStairs objectClimbingStairs;
+    public ObjectClimbingStairs _objectClimbingStairs => objectClimbingStairs;
+    [SerializeField] protected ObjectStairsDetected objectStairsDetected;
+    public ObjectStairsDetected _objectStairsDetected => objectStairsDetected;
+    [SerializeField] protected Animator animator;
+    public Animator _animator => animator;   
     protected override void Awake()
     {
         base.Awake();
@@ -32,6 +38,9 @@ public class PlayerControler : NewMonoBehaviour
         this.LoadObjectPushDetected();
         this.LoadObjectMoveFoward();
         this.LoadInventory();
+        this.LoadObjectClimbingStairs();
+        this.LoadObjectStairsDetected();
+        this.LoadAnimator();
     }
 
     protected virtual void LoadObjectMovement()
@@ -39,6 +48,12 @@ public class PlayerControler : NewMonoBehaviour
         if(this.objectMovement != null) return;
         this.objectMovement = GetComponentInChildren<ObjectMovement>();
         Debug.Log(transform.name + ": LoadObjectMovement()", gameObject);
+    }
+    protected virtual void LoadAnimator()
+    {
+        if(this.animator != null) return;
+        this.animator = GetComponentInChildren<Animator>();
+        Debug.Log(transform.name + ": LoadAnimator()", gameObject);
     }
 
     protected virtual void LoadObjectMoveFoward()
@@ -73,5 +88,17 @@ public class PlayerControler : NewMonoBehaviour
         if(this.inventory != null) return;
         this.inventory = FindAnyObjectByType<Inventory>();
         Debug.Log(transform.name + ": LoadInventory()", gameObject);
+    }
+    protected virtual void LoadObjectClimbingStairs()
+    {
+        if(this.objectClimbingStairs != null) return;
+        this.objectClimbingStairs = FindAnyObjectByType<ObjectClimbingStairs>();
+        Debug.Log(transform.name + ": LoadObjectClimbingStairs()", gameObject);
+    }
+    protected virtual void LoadObjectStairsDetected()
+    {
+        if(this.objectStairsDetected != null) return;
+        this.objectStairsDetected  = FindAnyObjectByType<ObjectStairsDetected>();
+        Debug.Log(transform.name + ": LoadObjectStairsDetected()", gameObject);
     }
 }

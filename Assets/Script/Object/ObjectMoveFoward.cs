@@ -60,7 +60,6 @@ public class ObjectMoveFoward : ObjectMovement
         }
         moveX = Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f ? 0f : Input.GetAxis("Horizontal");
         moveZ = Mathf.Abs(Input.GetAxis("Vertical")) < 0.01f ? 0f : Input.GetAxis("Vertical");
-        float zScale = Mathf.Abs(transform.localScale.z);
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
         moveDirection = new Vector3(moveX, 0, moveZ);
         

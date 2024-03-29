@@ -61,7 +61,7 @@ public class KeyHolder : NewMonoBehaviour
     }
     protected virtual void CheckForFKey(Collider collider)
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(KeyCode.F))
         {
             HandleFKeyPressed(collider);
         }
@@ -96,6 +96,7 @@ public class KeyHolder : NewMonoBehaviour
             {             
                 keyDoor.OpenDoor();
                 playerControler._inventory.RemoveItemWithGameObject(keyDoor.GetKeyType());
+                Destroy(keyDoor.gameObject);
             }
             else
             {
