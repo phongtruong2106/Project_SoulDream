@@ -7,6 +7,7 @@ public class ObjectClimbingStairs : NewMonoBehaviour
 
     private void Update() {
         this.CheckIsStairs();
+        this.CheckIdlePose();
     }
 
     protected override void LoadComponents()
@@ -30,6 +31,15 @@ public class ObjectClimbingStairs : NewMonoBehaviour
             playerControler._animator.SetBool("isJumping", false);
         }
         else
+        {
+            playerControler._animator.SetBool("IsStairs", false);
+        }
+    }
+
+    protected virtual void CheckIdlePose()
+    {
+
+        if(playerControler._objectMovement._moveX == 0 || playerControler._objectMovement._moveZ == 0)
         {
             playerControler._animator.SetBool("IsStairs", false);
         }
