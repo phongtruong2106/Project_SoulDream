@@ -43,6 +43,7 @@ public class ZoomPressKey : Zoom
             if(isZone)
             {
                 this.ZoomTarget();
+                this.gameManager._hideMouse.isHide = true;
             }           
         }   
     }

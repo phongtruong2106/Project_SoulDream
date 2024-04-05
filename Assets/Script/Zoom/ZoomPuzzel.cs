@@ -12,6 +12,8 @@ public class ZoomPuzzel : ZoomPressKey
             if(Input.GetKeyDown(KeyCode.E))
             {
                 this.DefaultZoomTarget();
+                this.isZone = false;
+                this.gameManager._hideMouse.isHide = false;
             }
         }
     }

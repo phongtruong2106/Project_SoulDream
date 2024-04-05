@@ -13,12 +13,14 @@ public class Zoom : NewMonoBehaviour
     [SerializeField] protected float followSpeed;
  
     [SerializeField] protected CameraController cameraController;
+    [SerializeField] protected GameManager gameManager;
     [SerializeField] protected GameObject targetPoint;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadCameraController();
+        this.LoadGameManager();
     }
 
     protected virtual void LoadCameraController()
@@ -27,6 +29,13 @@ public class Zoom : NewMonoBehaviour
         this.cameraController = FindAnyObjectByType<CameraController>();
         Debug.Log(transform.name + ": LoadCameraController();", gameObject);
     }
+    protected virtual void LoadGameManager()
+    {
+        if(this.gameManager != null) return;
+        this.gameManager = FindAnyObjectByType<GameManager>();
+        Debug.Log(transform.name + ": LoadGameManager()", gameObject);
+    }
+
 
     protected virtual void DefaultZoomTarget()
     {

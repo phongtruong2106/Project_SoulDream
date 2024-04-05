@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NewMonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] protected HideMouse hideMouse;
+    public HideMouse _hideMouse => hideMouse;
+
+    protected override void LoadComponents()
     {
-        
+        base.LoadComponents();
+        this.LoadHideMouse();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void LoadHideMouse()
     {
-        
+        if(this.hideMouse != null) return;
+        this.hideMouse = GetComponentInChildren<HideMouse>();
+        Debug.Log(transform.name + ": LoadHideMouse()", gameObject);
     }
+
+
 }
