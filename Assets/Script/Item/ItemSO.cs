@@ -6,5 +6,5 @@ public class ItemSO : ScriptableObject
 {
     public ItemType itemType = ItemType.NoType;
     public string itemName = "no-name";
-    public Image image;
+    public Sprite image;
 }
