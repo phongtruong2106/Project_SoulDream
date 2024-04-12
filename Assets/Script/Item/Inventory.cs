@@ -2,16 +2,19 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class Inventory : NewMonoBehaviour
 {
     public event EventHandler OnKeysChanged;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Transform itemHolder;
+    [SerializeField] protected UIController uIController;
     [SerializeField] private Dictionary<ItemType, Item> itemDictionary = new Dictionary<ItemType, Item>();
 
     public Dictionary<ItemType, Item> ItemsDictionary => itemDictionary;
     private Item currentItemInSlot;
-    private KeyHolder keyHolder;
+    
  
     private static Inventory instance;
     public static Inventory Instance => instance;
@@ -27,6 +30,18 @@ public class Inventory : NewMonoBehaviour
             instance = this;
         }
     }
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadUIController();
+    }
+
+    protected virtual void LoadUIController()
+    {
+        if(this.uIController != null) return;
+        this.uIController = FindAnyObjectByType<UIController>();
+        Debug.Log(transform.name + ": LoadUIController();", gameObject);
+    }
     public void AddItem(Item newItem)
     {
         if (currentItemInSlot != null)
@@ -38,6 +53,9 @@ public class Inventory : NewMonoBehaviour
             }
         }
         itemDictionary[newItem._itemSO.itemType] = newItem;
+        newItem.transform.parent.SetParent(itemHolder);
+        // newItem.transform.localPosition = Vector3.zero; 
+        uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
         newItem.transform.parent.gameObject.SetActive(false);
         currentItemInSlot = newItem;
     }
@@ -52,7 +70,7 @@ public class Inventory : NewMonoBehaviour
                 Destroy(item.transform.parent.gameObject);
             }
             ItemsDictionary.Remove(itemType);
-
+            uIController._uIGame._spriteItem.sprite = null;
             OnKeysChanged?.Invoke(this, EventArgs.Empty);
         }
     }

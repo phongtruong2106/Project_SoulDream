@@ -43,7 +43,7 @@ public class EnemyMovement : Enemy
             animator.SetTrigger("isHandUp"); 
             if(!this.isMove)
             {
-                position = new Vector3(handPosition.position.x, handPosition.position.y/2, handPosition.position.z);
+                position = new Vector3(handPosition.position.x, handPosition.position.y/ 2, handPosition.position.z);
                 player.position = position;  
             }
 

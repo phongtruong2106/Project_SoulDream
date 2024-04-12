@@ -53,7 +53,7 @@ public class UIController : NewMonoBehaviour
 
     protected virtual void LoadUIGame()
     {
-        if(this.dialogueNew != null) return;
+        if(this.uIGame != null) return;
         this.uIGame = GetComponentInChildren<UIGame>();
         Debug.Log(transform.name + ": LoadUIGame()", gameObject);
     }

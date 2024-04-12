@@ -6077,7 +6077,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f0c02f97de3b8194f8d56bcfc30239f0, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: dadb552e1e94dd44ea32776e91b3ea4f,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22329,7 +22330,8 @@ MonoBehaviour:
   uI_Dialogue: {fileID: 0}
   uI_PressButton: {fileID: 1859891033}
   uI_KeyHolder: {fileID: 1345170964}
-  dialogueNew: {fileID: 0}
+  dialogueNew: {fileID: 19137545}
+  uIGame: {fileID: 1873172081}
 --- !u!1 &1499150951
 GameObject:
   m_ObjectHideFlags: 0
@@ -31292,6 +31294,7 @@ GameObject:
   - component: {fileID: 1873172080}
   - component: {fileID: 1873172079}
   - component: {fileID: 1873172078}
+  - component: {fileID: 1873172081}
   m_Layer: 5
   m_Name: UI_Game
   m_TagString: Untagged
@@ -31382,6 +31385,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1873172081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873172076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0851960f2883046924855575582a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876102637
 GameObject:
   m_ObjectHideFlags: 0
