@@ -62,7 +62,6 @@ public class ObjectMoveFoward : ObjectMovement
         moveZ = Mathf.Abs(Input.GetAxis("Vertical")) < 0.01f ? 0f : Input.GetAxis("Vertical");
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude) / 2;
         moveDirection = new Vector3(moveX, 0, moveZ);
-        
         if(isMove)
         {
             if(isGrounded)

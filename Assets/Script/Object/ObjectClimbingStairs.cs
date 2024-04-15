@@ -4,6 +4,7 @@ using UnityEngine;
 public class ObjectClimbingStairs : NewMonoBehaviour
 {
     [SerializeField] protected PlayerControler playerControler;
+    [HideInInspector] public bool stairsDetected = false;
 
     private void Update() {
         this.CheckIsStairs();
@@ -25,14 +26,16 @@ public class ObjectClimbingStairs : NewMonoBehaviour
 
     protected virtual void CheckIsStairs()
     {
-        if(playerControler._objectStairsDetected._isStairs)
+        if(stairsDetected)
         {
             playerControler._animator.SetBool("IsStairs", true);
+            playerControler._animator.SetBool("isGround", false);
             playerControler._animator.SetBool("isJumping", false);
         }
         else
         {
             playerControler._animator.SetBool("IsStairs", false);
+            playerControler._animator.SetBool("isJumping", false);
         }
     }
 

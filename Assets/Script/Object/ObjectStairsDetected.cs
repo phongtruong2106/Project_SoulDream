@@ -3,18 +3,17 @@ using UnityEngine;
 public class ObjectStairsDetected : NewMonoBehaviour
 {
     [SerializeField] private string stairsTag = "Stairs";
-    [SerializeField]protected bool isStairs = false;
-    public bool _isStairs => isStairs;
+    public ObjectClimbingStairs objectClimbingStairs;
 
     protected virtual void OnTriggerExit(Collider collision) {
         if (collision.gameObject.CompareTag(stairsTag)) {
-            isStairs = false;
+            objectClimbingStairs.stairsDetected = false;
         }
     }
 
     protected virtual void OnTriggerStay(Collider other) {
         if (other.gameObject.CompareTag(stairsTag)) {
-            isStairs = true;
+            objectClimbingStairs.stairsDetected = true;
         }  
     }
 
