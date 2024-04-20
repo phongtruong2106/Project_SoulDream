@@ -31,6 +31,7 @@ public class InputPiano : NewMonoBehaviour
     {
        namePiano = sO_Piano.name;
        animator.SetTrigger(namePiano);
+       this.musicNote.Note_Play();
     }
 
     // private IEnumerator InputPiano()
