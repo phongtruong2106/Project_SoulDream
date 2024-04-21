@@ -3171,6 +3171,7 @@ GameObject:
   - component: {fileID: 5705139349664923096}
   - component: {fileID: 6395755274304572250}
   - component: {fileID: 114587368991337165}
+  - component: {fileID: 7829267731958278460}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -3265,6 +3266,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: c836b621dba3ee340a43db09afc0f61d, type: 3}
+--- !u!114 &7829267731958278460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762185526241160857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5cebfc309421142b2bdba58b5c0288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5283524385008314035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,6 +3287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3036303713023093246}
+  - component: {fileID: 4715641459135755099}
   m_Layer: 0
   m_Name: Piano
   m_TagString: Untagged
@@ -3297,6 +3311,19 @@ Transform:
   - {fileID: 3206245124280577435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4715641459135755099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283524385008314035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4146a845e12045e4483351d52385bae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressedPianoNames: []
 --- !u!1 &5390164381907288385
 GameObject:
   m_ObjectHideFlags: 0
