@@ -11,11 +11,6 @@ public class OpenBox : NewMonoBehaviour
         this.LoadAnimator();
         this.LoadPiano();
     }
-    protected override void Start()
-    {
-        base.Start();
-        animator.SetBool("BoxOpen", false);
-    }
 
     private void Update() {
         this.Open();
@@ -24,7 +19,7 @@ public class OpenBox : NewMonoBehaviour
     protected virtual void LoadAnimator()
     {
         if(this.animator != null) return;
-        this.animator = transform.parent.GetComponent<Animator>();
+        this.animator = transform.GetComponent<Animator>();
         Debug.Log(transform.name + ": LoadAnimator()", gameObject);
     }
 
@@ -40,11 +35,7 @@ public class OpenBox : NewMonoBehaviour
     {
         if(this.piano.IsPressed)
         {
-            animator.SetBool("BoxOpen", true);
-        }
-        else
-        {
-            animator.SetBool("BoxOpen", false);
+            animator.SetTrigger("BoxOpen");
         }
        
     }
