@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class CheckUIPressKey : NewMonoBehaviour
 {
-    protected bool isPlayer;
-    [SerializeField] protected UI_PressButton uI_PressButton;
-    [SerializeField] protected GameObject uI_PressButtonObj;
+    protected UI_PressButton uI_PressButton;
+    [SerializeField] protected string textBox;
+    [SerializeField] protected ZoomPuzzel zoomPuzzel;
+    protected UIController uIController;
+    protected bool isZoom;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadUIPressButton();
-    }
-    private void Update() {
-        this.OpenUIPress();
+        this.LoadUIController();
     }
 
+    protected virtual void LoadUIController()
+    {
+        if(this.uIController != null) return;
+        this.uIController = FindAnyObjectByType<UIController>();
+        Debug.Log(transform.name + ": LoadUIController()", gameObject);
+    }
     protected virtual void LoadUIPressButton()
     {
          if(this.uI_PressButton != null) return;
@@ -27,22 +33,15 @@ public class CheckUIPressKey : NewMonoBehaviour
     protected virtual void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
-            this.isPlayer = true;
+            uIController._uIGameObject.UI_PressButtonObj.gameObject.SetActive(true);
+            uI_PressButton._text_ObjPress.text = textBox;
         }
     }
 
     protected virtual void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
-            this.isPlayer = false;
-        }
-    }
-
-    protected virtual void OpenUIPress()
-    {
-        if(this.isPlayer)
-        {
-            uI_PressButtonObj.gameObject.SetActive(true);
+           uIController._uIGameObject.UI_PressButtonObj.gameObject.SetActive(false);
         }
     }
 }

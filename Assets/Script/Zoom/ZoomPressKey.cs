@@ -5,6 +5,9 @@ public class ZoomPressKey : Zoom
     [Header("Zoom Press Key")]
     protected bool isZoom;
     protected bool isZone;
+    [SerializeField] protected GameObject uI_PressExit;
+
+
 
     private void Update() 
     {
@@ -44,6 +47,7 @@ public class ZoomPressKey : Zoom
             {
                 this.ZoomTarget();
                 this.gameManager._hideMouse.isHide = true;
+                this.uI_PressExit.gameObject.SetActive(true);
             }           
         }   
     }

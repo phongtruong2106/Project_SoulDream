@@ -13,6 +13,8 @@ public class UIController : NewMonoBehaviour
     public DialogueNew _dialogueNew => dialogueNew;
     [SerializeField] protected UIGame uIGame;
     public UIGame _uIGame => uIGame;
+    [SerializeField] protected UIGameObject uIGameObject;
+    public UIGameObject _uIGameObject => uIGameObject;
 
     protected override void LoadComponents()
     {
@@ -22,6 +24,14 @@ public class UIController : NewMonoBehaviour
         this.LoadUIKeyHolder();
         this.LoadDialogueNew();
         this.LoadUIGame();
+        this.LoadUIGameObject();
+    }
+
+    protected virtual void LoadUIGameObject()
+    {
+        if(this.uIGameObject != null) return;
+        this.uIGameObject = FindAnyObjectByType<UIGameObject>();
+        Debug.Log(transform.name + ": LoadUIGameObject()", gameObject);
     }
 
     protected virtual void LoadUIDialogue()

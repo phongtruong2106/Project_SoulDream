@@ -16,12 +16,14 @@ public class Zoom : NewMonoBehaviour
     [SerializeField] protected GameManager gameManager;
     [SerializeField] protected GameObject targetPoint;
 
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadCameraController();
         this.LoadGameManager();
     }
+
 
     protected virtual void LoadCameraController()
     {
