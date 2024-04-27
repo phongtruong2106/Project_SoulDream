@@ -16,7 +16,13 @@ public class EnemyMovement : Enemy
      
     private void Update() {
         this.CheckPlayerInArea();
-        this.CheckTouchPlayerMove();
+    }
+    protected virtual void CheckPlayerInArea()
+    {
+        if(enemyController._enemy._objectCheckPlayer._isPlayer)
+        {
+            this.MoveTowardsPlayer();
+        }
     }
 
     protected virtual void MoveTowardsPlayer()
@@ -32,30 +38,6 @@ public class EnemyMovement : Enemy
         }
     }
     
-    protected virtual void CheckTouchPlayerMove()
-    {
-        if(enemyController._enemyCheckTouchPlayer._isTouch)
-        {
-            this.isMove = false;
-        }
-        if(enemyController._enemyCheckPlayer._isPlayer)
-        {   
-            animator.SetTrigger("isHandUp"); 
-            if(!this.isMove)
-            {
-                position = new Vector3(handPosition.position.x, handPosition.position.y/ 2, handPosition.position.z);
-                player.position = position;  
-            }
 
-        }
-    }
-
-    protected virtual void CheckPlayerInArea()
-    {
-        if(enemyController._enemy._objectCheckPlayer._isPlayer)
-        {
-            this.MoveTowardsPlayer();
-        }
-    }
 
 }

@@ -11,5 +11,5 @@ public class ObjectCheckLiftPlayer : NewMonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) isPlayer = true;
     }
 
-
+        
 }

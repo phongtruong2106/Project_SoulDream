@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : NewMonoBehaviour
@@ -12,6 +13,10 @@ public class EnemyController : NewMonoBehaviour
     public EnemyManager _enemy => enemy;
     [SerializeField] protected EnemyMovement enemyMovement;
     public EnemyMovement _enemyMovement => enemyMovement;
+    [SerializeField] protected ObjectPickPlayer objectPickPlayer;
+    public ObjectPickPlayer _objectPickPlayer => objectPickPlayer;
+    [SerializeField] protected Animator animator;
+    public Animator _animator => animator;   
 
     protected override void LoadComponents()
     {
@@ -20,6 +25,22 @@ public class EnemyController : NewMonoBehaviour
         this.LoadEnemyMovement();
         this.LoadEnemyCheckPlayer();
         this.LoadEnemyCheckTouchPlayer();
+        this.LoadObjectPickPlayer();
+        this.LoadAnimation();
+    }
+
+    protected virtual void LoadAnimation()
+    {
+        if(this.animator != null) return;
+        this.animator = transform.GetComponentInChildren<Animator>();
+        Debug.Log(transform.name + ": LLoadAnimation()", gameObject);
+    }
+
+    protected virtual void LoadObjectPickPlayer()
+    {
+        if(this.objectPickPlayer != null) return;
+        this.objectPickPlayer = transform.GetComponentInChildren<ObjectPickPlayer>();
+        Debug.Log(transform.name + ": LoadObjectPickPlayer()", gameObject);
     }
 
     protected virtual void LoadEnemy()
