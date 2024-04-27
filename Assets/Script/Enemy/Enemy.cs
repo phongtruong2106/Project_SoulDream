@@ -4,7 +4,6 @@ using UnityEngine.AI;
 public class Enemy : NewMonoBehaviour
 {
     [SerializeField] protected EnemyController enemyController;
-    [SerializeField] protected NavMeshAgent agent;
     
     protected override void LoadComponents()
     {

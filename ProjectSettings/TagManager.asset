@@ -7,6 +7,7 @@ TagManager:
   - Box
   - Stairs
   - ClimbObj
+  - Door
   layers:
   - Default
   - TransparentFX

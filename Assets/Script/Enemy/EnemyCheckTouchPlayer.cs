@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyCheckTouchPlayer : NewMonoBehaviour
+public class EnemyCheckTouchPlayer : Enemy
 {
     [SerializeField] protected bool isTouch = false;
     public bool _isTouch => isTouch;

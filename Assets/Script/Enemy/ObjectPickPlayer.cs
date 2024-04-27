@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPickPlayer : NewMonoBehaviour
+public class ObjectPickPlayer : Enemy
 {
-    [SerializeField] protected EnemyController enemyController;
     [SerializeField] protected GameObject objectHand;
     [SerializeField] protected GameObject playerObj;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadEnemyController();
     }
 
     private void Update() {
@@ -19,22 +17,17 @@ public class ObjectPickPlayer : NewMonoBehaviour
         this.PickUpPlayer();
     }
 
-    protected virtual void LoadEnemyController()
-    {
-        if(this.enemyController!= null) return;
-        this.enemyController = transform.parent.GetComponent<EnemyController>();
-        Debug.Log(transform.name + ": LoadObjectCheckPlayer()", gameObject);
-    }
-
     protected virtual void AttackPlayer()
     {
         if(enemyController._enemyCheckPlayer._isPlayer)
         {
             enemyController._animator.SetBool("isHandUp", true);
+            enemyController._enemyMovement.isMove = false;
         }
         else
         {
             enemyController._animator.SetBool("isHandUp", false);
+            enemyController._enemyMovement.isMove = true;
         }
     }
 
@@ -42,7 +35,7 @@ public class ObjectPickPlayer : NewMonoBehaviour
     {
         if(enemyController._enemyCheckTouchPlayer._isTouch)
         {
-           Vector3 handPosition = objectHand.transform.position;
+            Vector3 handPosition = objectHand.transform.position;
             playerObj.transform.position = handPosition;
             Vector3 offset = playerObj.transform.position - handPosition;
             float yOffset = 1.0f;

@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class EnemyMovement : Enemy
 {
-    [SerializeField] protected Transform player;
+    [SerializeField] protected Transform objectPos;
     [SerializeField] protected float detectionRadius;
-    [SerializeField] protected Transform handPosition;
-    [SerializeField] protected bool isMove = true;
-    public bool _isMove => isMove;
     [SerializeField] protected Animator animator;
-    [SerializeField] protected Vector3 position;
     [SerializeField] protected Vector3 movePositon;
+    public bool isMove = true;
+
      
     private void Update() {
         this.CheckPlayerInArea();
@@ -29,9 +27,9 @@ public class EnemyMovement : Enemy
     {
         if(this.isMove)
         {
-            Vector3 directionToPlayer = player.position - transform.position;
-            Vector3 targetPosition = player.position - directionToPlayer.normalized * detectionRadius;
-            agent.SetDestination(targetPosition);
+            Vector3 directionToPlayer = objectPos.position - transform.position;
+            Vector3 targetPosition = objectPos.position - directionToPlayer.normalized * detectionRadius;
+            enemyController.Agent.SetDestination(targetPosition);
             movePositon = new Vector3(transform.parent.position.x, transform.parent.position.y, transform.position.z);
             float inputMagnitude = Mathf.Clamp01(movePositon.magnitude);
             animator.SetFloat("IsMove", inputMagnitude);

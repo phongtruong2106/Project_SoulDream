@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : NewMonoBehaviour
 {
@@ -17,6 +18,8 @@ public class EnemyController : NewMonoBehaviour
     public ObjectPickPlayer _objectPickPlayer => objectPickPlayer;
     [SerializeField] protected Animator animator;
     public Animator _animator => animator;   
+    [SerializeField] protected NavMeshAgent agent;
+    public NavMeshAgent Agent => agent;
 
     protected override void LoadComponents()
     {
@@ -27,6 +30,14 @@ public class EnemyController : NewMonoBehaviour
         this.LoadEnemyCheckTouchPlayer();
         this.LoadObjectPickPlayer();
         this.LoadAnimation();
+        this.LoadNavMeshAgent();
+    }
+
+    protected virtual void LoadNavMeshAgent()
+    {
+        if(this.agent != null) return;
+        this.agent = GetComponent<NavMeshAgent>();
+        Debug.Log(transform.name + ": LoadNavMeshAgent()", gameObject);
     }
 
     protected virtual void LoadAnimation()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : NewMonoBehaviour
+public class EnemyManager : Enemy
 {
     [SerializeField] protected ObjectCheckLiftPlayer objectCheckPlayer;
     public ObjectCheckLiftPlayer _objectCheckPlayer => objectCheckPlayer;

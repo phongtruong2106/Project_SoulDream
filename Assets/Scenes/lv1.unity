@@ -2372,6 +2372,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1300308982}
   objectPickPlayer: {fileID: 2020399030}
   animator: {fileID: 895885558}
+  agent: {fileID: 166799968}
 --- !u!54 &166799970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6501,6 +6502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48295c7fa7fb36c4182e56bba6b24147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
   objectCheckPlayer: {fileID: 2117295153}
 --- !u!1 &486616123
 GameObject:
@@ -7363,6 +7365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf6cf871175cc4418d4f4d518f6a69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
   isTouch: 0
 --- !u!1 &551725235
 GameObject:
@@ -8345,6 +8348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf6cf871175cc4418d4f4d518f6a69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
   isTouch: 0
 --- !u!65 &655181257
 BoxCollider:
@@ -10537,6 +10541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4476d1441ac98504eb195bedd686b045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 166799969}
 --- !u!1 &897781795
 GameObject:
   m_ObjectHideFlags: 0
@@ -20416,14 +20421,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 166799969}
-  agent: {fileID: 166799968}
-  player: {fileID: 265153759539155994}
+  objectPos: {fileID: 265153759539155994}
   detectionRadius: 1
-  handPosition: {fileID: 1499150952}
-  isMove: 1
   animator: {fileID: 895885558}
-  position: {x: 0, y: 0, z: 0}
   movePositon: {x: 0, y: 0, z: 0}
+  isMove: 1
 --- !u!1 &1301177876
 GameObject:
   m_ObjectHideFlags: 0
@@ -21345,7 +21347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d63b3a390c0f948942ec7e0e87a4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
+  enemyController: {fileID: 0}
+  _isPlayer: 0
 --- !u!65 &1384481942
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28793,7 +28796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d63b3a390c0f948942ec7e0e87a4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
+  enemyController: {fileID: 166799969}
+  _isPlayer: 0
 --- !u!65 &1595202382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29576,14 +29580,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 1822638092}
-  agent: {fileID: 1822638093}
-  player: {fileID: 265153759539155994}
+  objectPos: {fileID: 0}
   detectionRadius: 1
-  handPosition: {fileID: 8014980}
-  isMove: 1
   animator: {fileID: 5366557704946940324}
-  position: {x: 0, y: 0, z: 0}
   movePositon: {x: 0, y: 0, z: 0}
+  isMove: 1
 --- !u!1 &1700350178
 GameObject:
   m_ObjectHideFlags: 0
@@ -30588,6 +30589,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 1685113013}
   objectPickPlayer: {fileID: 0}
   animator: {fileID: 0}
+  agent: {fileID: 0}
 --- !u!195 &1822638093
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -33531,6 +33533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e8d1cbe7f4d6d4386e4afab2b9124e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
   isPlayer: 0
   layerMask:
     serializedVersion: 2
@@ -59796,7 +59799,7 @@ GameObject:
   - component: {fileID: 8428276860737844496}
   m_Layer: 0
   m_Name: 03_low
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCheckPlayer : MonoBehaviour
+public class EnemyCheckPlayer : Enemy
 {
-    [SerializeField] protected bool isPlayer = false;
-    public bool _isPlayer => isPlayer;
+    public bool _isPlayer = false;
 
     protected virtual void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) isPlayer = true;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) _isPlayer = true;
     }
 }
