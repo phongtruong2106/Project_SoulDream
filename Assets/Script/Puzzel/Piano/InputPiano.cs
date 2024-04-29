@@ -68,7 +68,7 @@ public class InputPiano : NewMonoBehaviour
 
         protected virtual void IslisteningMusic()
         {
-            if(pressCount == 10)
+            if(pressCount >= 10)
             {
                 pianoController._notificationPiano.IsNotification = true;
             }

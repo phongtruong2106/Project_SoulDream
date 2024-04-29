@@ -10,8 +10,6 @@ public class EnemyMovement : Enemy
     [SerializeField] protected Animator animator;
     [SerializeField] protected Vector3 movePositon;
     [SerializeField] protected Transform objectPosDefault;
-    [SerializeField] protected Transform ObjectConfirm;
-
     public bool isMove = true;
 
     protected override void Start()

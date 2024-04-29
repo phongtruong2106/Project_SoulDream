@@ -5,6 +5,7 @@ using UnityEngine;
 public class KeyDoor : NewMonoBehaviour
 {
     [SerializeField] private ItemType itemType;
+    
 
     public ItemType GetKeyType()
     {

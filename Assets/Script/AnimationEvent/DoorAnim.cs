@@ -4,8 +4,9 @@ public class DoorAnim : NewMonoBehaviour
 {
     [Header("Player Controller")]
     public static DoorAnim instance;
-    [SerializeField] protected Animator animator;
 
+    [SerializeField] protected DoorController doorController;
+ 
     protected override void Awake()
     {
         base.Awake();
@@ -16,18 +17,17 @@ public class DoorAnim : NewMonoBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadAnimator();
+        this.LoadDoorController();
     }
-
-    protected virtual void LoadAnimator()
+    protected virtual void LoadDoorController()
     {
-        if(this.animator != null) return;
-        this.animator = GetComponent<Animator>();
-        Debug.Log(transform.name + ": LoadAnimator()", gameObject);
+        if(this.doorController != null) return;
+        this.doorController = transform.parent.GetComponent<DoorController>();
+        Debug.Log(transform.name + ": LoadDoorController()", gameObject);
     }
 
     public void OpenDoor()
     {
-        animator.SetTrigger("isOpen");
+        doorController._animator.SetBool("isOpen", true);
     }
 }
