@@ -19,9 +19,9 @@ public class Piano : NewMonoBehaviour
         defaultPianoNames.Add("G");
         defaultPianoNames.Add("F");
         defaultPianoNames.Add("E");
-        // defaultPianoNames.Add("D");
-        // defaultPianoNames.Add("C");
-        // defaultPianoNames.Add("C");
+        defaultPianoNames.Add("D");
+        defaultPianoNames.Add("C");
+        defaultPianoNames.Add("C");
         // defaultPianoNames.Add("D");
         // defaultPianoNames.Add("E");
         // defaultPianoNames.Add("E");

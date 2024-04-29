@@ -20,6 +20,9 @@ public class EnemyController : NewMonoBehaviour
     public Animator _animator => animator;   
     [SerializeField] protected NavMeshAgent agent;
     public NavMeshAgent Agent => agent;
+    [SerializeField] protected PianoController pianoController;
+    public PianoController PianoController => pianoController;
+    
 
     protected override void LoadComponents()
     {
@@ -31,8 +34,15 @@ public class EnemyController : NewMonoBehaviour
         this.LoadObjectPickPlayer();
         this.LoadAnimation();
         this.LoadNavMeshAgent();
+        this.LoadPianoController();
     }
 
+    protected virtual void LoadPianoController()
+    {
+        if(this.pianoController != null) return;
+        this.pianoController = FindAnyObjectByType<PianoController>();
+        Debug.Log(transform.name + ": LoadPianoController()", gameObject);
+    }
     protected virtual void LoadNavMeshAgent()
     {
         if(this.agent != null) return;

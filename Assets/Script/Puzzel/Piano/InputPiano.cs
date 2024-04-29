@@ -1,7 +1,8 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using UnityEngine;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 public class InputPiano : NewMonoBehaviour
@@ -11,6 +12,13 @@ public class InputPiano : NewMonoBehaviour
         private Animator animator;
         private string namePiano;
         private Piano piano;
+        private static int pressCount = 0; 
+        protected PianoController pianoController;
+
+        protected void Update()
+        {
+            this.IslisteningMusic();
+        }
 
         protected override void LoadComponents()
         {
@@ -18,12 +26,22 @@ public class InputPiano : NewMonoBehaviour
             this.LoadAnimator();
             this.LoadMusicNote();
             this.LoadPiano();
+            this.LoadPianoController();
         }
+
+
         protected virtual void LoadAnimator()
         {
             if(this.animator != null) return;
             this.animator = transform.parent.GetComponent<Animator>();
             Debug.Log(transform.name + ": LoadAnimator()", gameObject);
+        }
+
+        protected virtual void LoadPianoController()
+        {
+            if(this.pianoController != null) return;
+            this.pianoController = transform.parent.parent.GetComponent<PianoController>();
+            Debug.Log(transform.name + ": LoadPianoController()", gameObject);
         }
         protected virtual void LoadPiano()
         {
@@ -40,9 +58,21 @@ public class InputPiano : NewMonoBehaviour
         private void OnMouseDown()
         {
             namePiano = sO_Piano.name;
+            pressCount++;
             piano.AddpressedPianoName(namePiano);
             animator.SetTrigger(namePiano);
             this.musicNote.Note_Play();
+
+            Debug.Log("Total Press Count: " + pressCount);
+        }
+
+        protected virtual void IslisteningMusic()
+        {
+            if(pressCount == 10)
+            {
+                pianoController._notificationPiano.IsNotification = true;
+            }
+            
         }
 
         // private IEnumerator InputPiano()

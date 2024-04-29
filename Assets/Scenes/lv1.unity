@@ -2330,6 +2330,7 @@ Transform:
   - {fileID: 1300308981}
   - {fileID: 1595202380}
   - {fileID: 2020399029}
+  - {fileID: 1059129574}
   m_Father: {fileID: 86789515}
   m_LocalEulerAnglesHint: {x: 0, y: 179.441, z: 0}
 --- !u!195 &166799968
@@ -2373,6 +2374,7 @@ MonoBehaviour:
   objectPickPlayer: {fileID: 2020399030}
   animator: {fileID: 895885558}
   agent: {fileID: 166799968}
+  pianoController: {fileID: 0}
 --- !u!54 &166799970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5622,6 +5624,51 @@ Transform:
   - {fileID: 1883559229}
   m_Father: {fileID: 1981912760}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &418825038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 418825039}
+  - component: {fileID: 418825040}
+  m_Layer: 0
+  m_Name: NotificationPiano
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &418825039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418825038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1550472688150889363}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &418825040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418825038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4630d5254940b34ebfda837e1c11851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsNotification: 0
 --- !u!1 &418861531
 GameObject:
   m_ObjectHideFlags: 0
@@ -13541,6 +13588,53 @@ Transform:
   - {fileID: 2056304862}
   m_Father: {fileID: 1883559229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1059129573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1059129574}
+  - component: {fileID: 1059129575}
+  m_Layer: 0
+  m_Name: NofiticationEnemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1059129574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059129573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 166799967}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1059129575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059129573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2be68d0d3f581d4b89286ea639172d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsNotEnemy: 0
+  enemyController: {fileID: 166799969}
+  ObjectConfirm: {fileID: 1014853574}
 --- !u!1 &1060894232
 GameObject:
   m_ObjectHideFlags: 0
@@ -20425,6 +20519,8 @@ MonoBehaviour:
   detectionRadius: 1
   animator: {fileID: 895885558}
   movePositon: {x: 0, y: 0, z: 0}
+  objectPosDefault: {fileID: 265153759539155994}
+  ObjectConfirm: {fileID: 53377643}
   isMove: 1
 --- !u!1 &1301177876
 GameObject:
@@ -29584,6 +29680,8 @@ MonoBehaviour:
   detectionRadius: 1
   animator: {fileID: 5366557704946940324}
   movePositon: {x: 0, y: 0, z: 0}
+  objectPosDefault: {fileID: 0}
+  ObjectConfirm: {fileID: 0}
   isMove: 1
 --- !u!1 &1700350178
 GameObject:
@@ -30590,6 +30688,7 @@ MonoBehaviour:
   objectPickPlayer: {fileID: 0}
   animator: {fileID: 0}
   agent: {fileID: 0}
+  pianoController: {fileID: 0}
 --- !u!195 &1822638093
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -35065,7 +35164,7 @@ Transform:
   m_GameObject: {fileID: 8344725193348760191}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7372774, z: 0, w: 0.67559016}
-  m_LocalPosition: {x: -16.4, y: 1.009, z: -2.36}
+  m_LocalPosition: {x: -12.9, y: 13.02, z: -2.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -38477,6 +38576,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4357705352421282598}
+  - {fileID: 418825039}
   m_Father: {fileID: 86789515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1550531731631821392
@@ -60668,6 +60768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1550472688150889363}
   - component: {fileID: 4523719821343595687}
+  - component: {fileID: 8611347940594818577}
   m_Layer: 0
   m_Name: Piano
   m_TagString: Untagged
@@ -60675,6 +60776,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8611347940594818577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611347940594818576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ee0171fc2cf834ea6943d3c1acabdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &8611843938666856633
 AudioSource:
   m_ObjectHideFlags: 0
