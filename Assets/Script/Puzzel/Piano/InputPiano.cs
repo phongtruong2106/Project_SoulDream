@@ -71,6 +71,7 @@ public class InputPiano : NewMonoBehaviour
             if(pressCount >= 10)
             {
                 pianoController._notificationPiano.IsNotification = true;
+                pressCount = 0;
             }
             
         }

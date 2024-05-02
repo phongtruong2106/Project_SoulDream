@@ -10,18 +10,19 @@ public class EnemyMovement : Enemy
     [SerializeField] protected Animator animator;
     [SerializeField] protected Vector3 movePositon;
     [SerializeField] protected Transform objectPosDefault;
+    [SerializeField] protected Transform objectPosTrigger;
     public bool isMove = true;
 
     protected override void Start()
     {
         base.Start();
-        objectPos = objectPosDefault;
     }
 
 
     private void Update() {
         this.CheckPlayerInArea();
         this.EnemyFollowTarget();
+        this.EnemyFinishMoventTarget();
     }
     protected virtual void CheckPlayerInArea()
     {
@@ -43,14 +44,23 @@ public class EnemyMovement : Enemy
         }
     }
 
-     protected virtual void EnemyFollowTarget()
+    protected virtual void EnemyFollowTarget()
     {
+        
         if(enemyController.PianoController._notificationPiano.IsNotification)
         {
-            enemyController._enemyMovement.MoveTowardsPlayer();       
+            objectPos = objectPosTrigger;
+            this.MoveTowardsPlayer();        
         }
     }
     
-
+    protected virtual void EnemyFinishMoventTarget()
+    {
+        if(enemyController._checkEnemyMovement.IsCheck)
+        {
+            objectPos = enemyController._checkEnemyMovement.ObjPosConfirm;
+            this.MoveTowardsPlayer();  
+        }
+    }
 
 }
