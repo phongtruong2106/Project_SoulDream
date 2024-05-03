@@ -11,6 +11,7 @@ public class EnemyMovement : Enemy
     [SerializeField] protected Vector3 movePositon;
     [SerializeField] protected Transform objectPosDefault;
     [SerializeField] protected Transform objectPosTrigger;
+    protected bool isCheckTarget;
     public bool isMove = true;
 
     protected override void Start()
@@ -56,11 +57,11 @@ public class EnemyMovement : Enemy
     
     protected virtual void EnemyFinishMoventTarget()
     {
-        if(enemyController._checkEnemyMovement.IsCheck)
+        if(!enemyController._checkEnemyMovement.IsCheck)
         {
             objectPos = enemyController._checkEnemyMovement.ObjPosConfirm;
             this.MoveTowardsPlayer();  
         }
     }
-
+    
 }

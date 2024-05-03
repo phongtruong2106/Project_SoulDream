@@ -28,7 +28,13 @@ public class CheckEnemyMovement : NewMonoBehaviour
     {
         if(isCheck)
         {
+            enemyController._animator.SetBool("IsStun", true);
             enemyController.PianoController._notificationPiano.IsNotification = false;
         }
+    }
+
+    public virtual void EventAnimation()
+    {
+        isCheck = false;
     }
 }
