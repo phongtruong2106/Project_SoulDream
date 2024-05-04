@@ -8,6 +8,9 @@ public class EnemyCheckPlayer : Enemy
 
     protected virtual void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) _isPlayer = true;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))       
+        {
+            _isPlayer = true;
+        } 
     }
 }

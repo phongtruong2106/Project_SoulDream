@@ -57,7 +57,7 @@ public class EnemyMovement : Enemy
     
     protected virtual void EnemyFinishMoventTarget()
     {
-        if(!enemyController._checkEnemyMovement.IsCheck)
+        if(enemyController._checkEnemyMovement.IsCheck)
         {
             objectPos = enemyController._checkEnemyMovement.ObjPosConfirm;
             this.MoveTowardsPlayer();  
