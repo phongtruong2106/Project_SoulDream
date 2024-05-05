@@ -23,7 +23,7 @@ public class EnemyMovement : Enemy
     private void Update() {
         this.CheckPlayerInArea();
         this.EnemyFollowTarget();
-        this.EnemyFinishMoventTarget();
+       // this.EnemyFinishMoventTarget();
     }
     protected virtual void CheckPlayerInArea()
     {

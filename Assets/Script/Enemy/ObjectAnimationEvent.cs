@@ -18,4 +18,9 @@ public class ObjectAnimationEvent : Enemy
             enemyController._enemyCheckPlayer._isPlayer = false;
         }
     }
+
+    protected virtual void EventMovement()
+    {
+        enemyController._checkEnemyMovement.isCheck = false;
+    }
 }

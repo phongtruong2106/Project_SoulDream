@@ -9,17 +9,17 @@ public class CheckEnemyMovement : NewMonoBehaviour
     public Transform ObjPosConfirm => objPosConfirm;
     public bool isCheck = false;
     public bool IsCheck => isCheck;
+    private Coroutine stunCoroutine;
 
     protected void Update()
     {
         this.CheckEnemy();
     }
 
-    protected void OnTriggerEnter(Collider collider)
+    protected void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            
+        {      
             this.isCheck = true;
         }
     }
@@ -28,9 +28,32 @@ public class CheckEnemyMovement : NewMonoBehaviour
     {
         if(isCheck)
         {
-            enemyController._animator.SetBool("IsStun", true);
             enemyController.PianoController._notificationPiano.IsNotification = false;
+            if (stunCoroutine == null)
+            {
+                stunCoroutine = StartCoroutine(StartStunTimer(0.5f));
+            }
         }
+        else if(!isCheck)
+        {
+           enemyController._enemyMovement.objectPos = objPosConfirm;
+           enemyController._animator.SetBool("IsStun", false);
+           enemyController._enemyMovement.MoveTowardsPlayer();
+        }
+    }
+
+    private IEnumerator StartStunTimer(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        StunAnimation();
+        isCheck = false;
+        stunCoroutine = null;
+    }
+
+    protected virtual void StunAnimation()
+    {
+        enemyController._animator.SetBool("IsStun", true);
     }
 
     public virtual void EventAnimation()
