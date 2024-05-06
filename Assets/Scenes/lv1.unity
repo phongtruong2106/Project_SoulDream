@@ -8001,6 +8001,7 @@ MonoBehaviour:
   enemyController: {fileID: 166799969}
   objPosConfirm: {fileID: 1085605893}
   isCheck: 0
+  isEnemyStun: 0
 --- !u!65 &602741283
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14100,7 +14101,7 @@ Transform:
   m_GameObject: {fileID: 1085605892}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4700003, y: -10.609, z: -4.63}
+  m_LocalPosition: {x: -4.64, y: -10.609, z: -4.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

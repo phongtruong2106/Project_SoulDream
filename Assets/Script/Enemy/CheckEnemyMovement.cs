@@ -9,18 +9,28 @@ public class CheckEnemyMovement : NewMonoBehaviour
     public Transform ObjPosConfirm => objPosConfirm;
     public bool isCheck = false;
     public bool IsCheck => isCheck;
+    public bool isEnemyStun = false;
     private Coroutine stunCoroutine;
+
 
     protected void Update()
     {
         this.CheckEnemy();
+        this.ChangeStateMovent();
     }
 
-    protected void OnTriggerStay(Collider collider)
+    protected void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {      
             this.isCheck = true;
+        }
+    }
+    protected void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {      
+            this.isCheck = false;
         }
     }
 
@@ -34,11 +44,15 @@ public class CheckEnemyMovement : NewMonoBehaviour
                 stunCoroutine = StartCoroutine(StartStunTimer(0.5f));
             }
         }
-        else if(!isCheck)
+    }
+
+    protected virtual void ChangeStateMovent()
+    {
+        if(isEnemyStun)
         {
-           enemyController._enemyMovement.objectPos = objPosConfirm;
-           enemyController._animator.SetBool("IsStun", false);
-           enemyController._enemyMovement.MoveTowardsPlayer();
+             enemyController._animator.SetBool("IsStun", false);
+             enemyController._enemyMovement.objectPos = objPosConfirm;
+             enemyController._enemyMovement.MoveTowardsPlayer();
         }
     }
 
@@ -49,6 +63,11 @@ public class CheckEnemyMovement : NewMonoBehaviour
         StunAnimation();
         isCheck = false;
         stunCoroutine = null;
+    }
+
+    protected virtual void StopStunAnimation()
+    {
+        enemyController._animator.SetBool("IsStun", false);
     }
 
     protected virtual void StunAnimation()

@@ -21,6 +21,6 @@ public class ObjectAnimationEvent : Enemy
 
     protected virtual void EventMovement()
     {
-        enemyController._checkEnemyMovement.isCheck = false;
+        enemyController._checkEnemyMovement.isEnemyStun = true;
     }
 }
