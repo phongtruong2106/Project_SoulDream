@@ -6,12 +6,17 @@ public class CheckEnemyMovement : NewMonoBehaviour
 {
     [SerializeField]  protected EnemyController enemyController;
     [SerializeField] protected Transform objPosConfirm;
+    [SerializeField] protected GameObject objectCheckSitDown;
     public Transform ObjPosConfirm => objPosConfirm;
     public bool isCheck = false;
     public bool IsCheck => isCheck;
     public bool isEnemyStun = false;
     private Coroutine stunCoroutine;
 
+    protected override void Start()
+    {
+        objectCheckSitDown.SetActive(false);
+    }
 
     protected void Update()
     {
@@ -53,6 +58,7 @@ public class CheckEnemyMovement : NewMonoBehaviour
              enemyController._animator.SetBool("IsStun", false);
              enemyController._enemyMovement.objectPos = objPosConfirm;
              enemyController._enemyMovement.MoveTowardsPlayer();
+             objectCheckSitDown.SetActive(true);
         }
     }
 
