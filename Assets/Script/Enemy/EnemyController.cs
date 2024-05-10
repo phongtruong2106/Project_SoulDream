@@ -24,6 +24,8 @@ public class EnemyController : NewMonoBehaviour
     public PianoController PianoController => pianoController;
     protected CheckEnemyMovement checkEnemyMovement;
     public CheckEnemyMovement _checkEnemyMovement => checkEnemyMovement;
+    protected CheckEnemySitDown checkEnemySitDown;
+    public CheckEnemySitDown _CheckEnemySitDown => checkEnemySitDown;
     
 
     protected override void LoadComponents()
@@ -38,6 +40,7 @@ public class EnemyController : NewMonoBehaviour
         this.LoadNavMeshAgent();
         this.LoadPianoController();
         this.LoadCheckEnemyMovement();
+        this.LoadCheckEnemySitDown();
     }
 
     protected virtual void LoadCheckEnemyMovement()
@@ -98,5 +101,12 @@ public class EnemyController : NewMonoBehaviour
         if(this.enemyCheckTouchPlayer != null) return;
         this.enemyCheckTouchPlayer = FindAnyObjectByType<EnemyCheckTouchPlayer>();
         Debug.Log(transform.name + ": LoadEnemyCheckTouchPlayer()", gameObject);
+    }
+
+    protected virtual void LoadCheckEnemySitDown()
+    {
+        if(this.checkEnemySitDown != null) return;
+        this.checkEnemySitDown = FindAnyObjectByType<CheckEnemySitDown>();
+        Debug.Log(transform.name + ": LoadCheckEnemySitDown()", gameObject);
     }
 }

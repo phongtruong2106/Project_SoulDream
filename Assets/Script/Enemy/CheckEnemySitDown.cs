@@ -3,7 +3,8 @@ using UnityEngine;
 public class CheckEnemySitDown : NewMonoBehaviour
 {
     [SerializeField] protected EnemyController enemyController;
-    protected bool isSitDown;
+    [SerializeField] protected GameObject objEnemy;
+    public bool isSitDown;
 
     protected virtual void Update()
     {
@@ -29,6 +30,12 @@ public class CheckEnemySitDown : NewMonoBehaviour
         if(isSitDown)
         {
             enemyController._animator.SetFloat("IsMove", 0);
+            enemyController._checkEnemyMovement.isEnemyStun = false;
+            objEnemy.transform.rotation = Quaternion.Euler(0, 172.443f, 0);
+            Vector3 newPos = objEnemy.transform.position;
+            newPos.z = -4.43f;
+            objEnemy.transform.position = newPos;
+            
         }
     }
 }

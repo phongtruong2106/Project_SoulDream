@@ -11,6 +11,7 @@ public class EnemyCheckPlayer : Enemy
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))       
         {
             _isPlayer = true;
+            enemyController._CheckEnemySitDown.isSitDown = false;
         } 
     }
 }
