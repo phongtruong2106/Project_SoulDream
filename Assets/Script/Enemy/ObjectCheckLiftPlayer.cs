@@ -9,6 +9,7 @@ public class ObjectCheckLiftPlayer : Enemy
     protected virtual void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) isPlayer = true;
+        
     }
 
         

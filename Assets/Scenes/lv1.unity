@@ -6151,6 +6151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 166799969}
+  objEnemy: {fileID: 166799966}
+  isSitDown: 0
 --- !u!65 &440946089
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34080,11 +34082,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e8d1cbe7f4d6d4386e4afab2b9124e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyController: {fileID: 0}
+  enemyController: {fileID: 166799969}
   isPlayer: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
 --- !u!65 &2117295154
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35612,7 +35614,7 @@ Transform:
   m_GameObject: {fileID: 8344725193348760191}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7372774, z: 0, w: 0.67559016}
-  m_LocalPosition: {x: -14.24, y: 12.7, z: -2.61}
+  m_LocalPosition: {x: -14.24, y: 12.69, z: -2.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
