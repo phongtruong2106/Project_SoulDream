@@ -29,6 +29,7 @@ public class CheckEnemyMovement : NewMonoBehaviour
         if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {      
             this.isCheck = true;
+            enemyController._enemyLookedPlayer.viewAngle = 62.3f;
         }
     }
     protected void OnTriggerExit(Collider collider)

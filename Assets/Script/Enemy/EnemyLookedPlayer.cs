@@ -3,14 +3,29 @@ using UnityEngine;
 public class EnemyLookedPlayer : NewMonoBehaviour
 {
     [SerializeField] protected float viewDistance = 10.0f; 
-    [SerializeField] protected float viewAngle = 45.0f; 
+    public float viewAngle = 45.0f; 
     [SerializeField] private Transform coneOrigin;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private string playerTag = "Player"; 
+    [SerializeField] protected Transform objPlayer;
+    protected EnemyController enemyController;
+    protected bool isLookedPlayer = false;
 
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadEnemyController();
+    }
     protected void Update()
     {
         this.CheckForPlayer();
+        this.FollowPlayer();
+    }
+    protected virtual void LoadEnemyController()
+    {
+        if(this.enemyController != null) return;
+        this.enemyController = transform.parent.GetComponent<EnemyController>();
+        Debug.Log(transform.name + ": LoadEnemyController()", gameObject);
     }
     private void CheckForPlayer()
     {
@@ -28,7 +43,8 @@ public class EnemyLookedPlayer : NewMonoBehaviour
                     {
                         if (hit.collider.CompareTag(playerTag))
                         {
-                            Debug.Log("Player detected");
+                            this.isLookedPlayer = true;
+                            
                         }
                     }
                 }
@@ -36,6 +52,15 @@ public class EnemyLookedPlayer : NewMonoBehaviour
         }
     }
 
+
+    protected virtual void FollowPlayer()
+    {
+        if(this.isLookedPlayer)
+        {
+            enemyController._enemyMovement.objectPos = objPlayer;
+            enemyController._enemyMovement.MoveTowardsPlayer();
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

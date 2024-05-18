@@ -26,6 +26,8 @@ public class EnemyController : NewMonoBehaviour
     public CheckEnemyMovement _checkEnemyMovement => checkEnemyMovement;
     protected CheckEnemySitDown checkEnemySitDown;
     public CheckEnemySitDown _CheckEnemySitDown => checkEnemySitDown;
+    [SerializeField] protected EnemyLookedPlayer enemyLookedPlayer;
+    public EnemyLookedPlayer _enemyLookedPlayer => enemyLookedPlayer;
     
 
     protected override void LoadComponents()
@@ -41,6 +43,7 @@ public class EnemyController : NewMonoBehaviour
         this.LoadPianoController();
         this.LoadCheckEnemyMovement();
         this.LoadCheckEnemySitDown();
+        this.LoadEnemyLookedPlayer();
     }
 
     protected virtual void LoadCheckEnemyMovement()
@@ -108,5 +111,12 @@ public class EnemyController : NewMonoBehaviour
         if(this.checkEnemySitDown != null) return;
         this.checkEnemySitDown = FindAnyObjectByType<CheckEnemySitDown>();
         Debug.Log(transform.name + ": LoadCheckEnemySitDown()", gameObject);
+    }
+
+    protected virtual void LoadEnemyLookedPlayer()
+    {
+        if(this.enemyLookedPlayer != null) return;
+        this.enemyLookedPlayer = transform.GetComponentInChildren<EnemyLookedPlayer>();
+        Debug.Log(transform.name + ": LoadEnemyLookedPlayer()", gameObject);
     }
 }
