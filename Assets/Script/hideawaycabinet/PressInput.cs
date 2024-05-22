@@ -37,7 +37,12 @@ public class PressInput : NewMonoBehaviour
         if(hideawayCabinetController._checkPlayerInSite.IsPlayerInSite)
         {
             hideawayCabinetController._animator.SetBool("CLose", true);
-            
+            hideawayCabinetController._animator.SetBool("Open", false);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                hideawayCabinetController._animator.SetBool("Open", true);
+                hideawayCabinetController._animator.SetBool("CLose", false);
+            }
         }
     }
 }
