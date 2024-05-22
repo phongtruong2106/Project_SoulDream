@@ -13,6 +13,7 @@ public class PressInput : NewMonoBehaviour
     private void Update()
     {
         this.InputOpenHC();
+        this.CloseHC();
     }
     protected virtual void LoadhideawayCabinetController()
     {
@@ -29,6 +30,14 @@ public class PressInput : NewMonoBehaviour
             {
                 hideawayCabinetController._animator.SetBool("Open", true);
             }
+        }
+    }
+    protected virtual void CloseHC()
+    {
+        if(hideawayCabinetController._checkPlayerInSite.IsPlayerInSite)
+        {
+            hideawayCabinetController._animator.SetBool("CLose", true);
+            
         }
     }
 }

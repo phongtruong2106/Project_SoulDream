@@ -4,6 +4,9 @@ public class ObjectCrouch : NewMonoBehaviour
 {
     [SerializeField] protected bool isCrouch = false;
     protected PlayerControler playerControler;
+    private float lastControlClickTime = 0f;
+    private float doubleClickThreshold = 0.3f;
+    
 
     protected override void LoadComponents()
     {
@@ -37,13 +40,18 @@ public class ObjectCrouch : NewMonoBehaviour
 
     protected virtual void CheckInput()
     {
-        if(Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            this.isCrouch = true;
-        }
-        else
-        {
-            this.isCrouch = false;
+            float timeSinceLastClick = Time.time - lastControlClickTime;
+            if (timeSinceLastClick <= doubleClickThreshold)
+            {
+                this.isCrouch = false;
+            }
+            else
+            {
+                this.isCrouch = true;
+            }
+            lastControlClickTime = Time.time;
         }
     }
 }
