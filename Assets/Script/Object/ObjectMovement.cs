@@ -26,6 +26,7 @@ public class ObjectMovement : NewMonoBehaviour
     public float _moveX => moveX;
     protected float moveZ;
     public float _moveZ => moveZ;
+    protected bool isCrouch = true;
 
     protected override void ResetValue()
     {

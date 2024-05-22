@@ -22,6 +22,8 @@ public class PlayerControler : NewMonoBehaviour
     public ObjectStairsDetected _objectStairsDetected => objectStairsDetected;
     [SerializeField] protected Animator animator;
     public Animator _animator => animator;   
+    [SerializeField] protected ObjectCrouch objectCrouch;
+    public ObjectCrouch _objectCrouch => objectCrouch;
     protected override void Awake()
     {
         base.Awake();
@@ -41,6 +43,7 @@ public class PlayerControler : NewMonoBehaviour
         this.LoadObjectClimbingStairs();
         this.LoadObjectStairsDetected();
         this.LoadAnimator();
+        this.LoadObjectCrouch();
     }
 
     protected virtual void LoadObjectMovement()
@@ -82,6 +85,13 @@ public class PlayerControler : NewMonoBehaviour
         if(this.objectPushDetected != null) return;
         this.objectPushDetected = transform.GetComponentInChildren<ObjectPushDetected>();
         Debug.Log(transform.name + ": LoadObjectPushDetected()", gameObject);
+    }
+
+    protected virtual void LoadObjectCrouch()
+    {
+        if(this.objectCrouch != null) return;
+        this.objectCrouch = transform.GetComponentInChildren<ObjectCrouch>();
+        Debug.Log(transform.name + ": LoadObjectCrouch()", gameObject);
     }
     protected virtual void LoadInventory()
     {

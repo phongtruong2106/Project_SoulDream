@@ -57376,6 +57376,7 @@ MonoBehaviour:
   objectClimbingStairs: {fileID: 4886518399523836073}
   objectStairsDetected: {fileID: 6307179268816822988}
   animator: {fileID: 8973171747499554433}
+  objectCrouch: {fileID: 696781404860973725}
 --- !u!23 &7187788766799673555
 MeshRenderer:
   m_ObjectHideFlags: 0

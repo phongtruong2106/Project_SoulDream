@@ -3,6 +3,7 @@ using UnityEngine;
 public class ObjectCrouch : NewMonoBehaviour
 {
     [SerializeField] protected bool isCrouch = false;
+    public bool _isCrouch => isCrouch;
     protected PlayerControler playerControler;
     private float lastControlClickTime = 0f;
     private float doubleClickThreshold = 0.3f;
