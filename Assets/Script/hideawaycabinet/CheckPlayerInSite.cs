@@ -2,14 +2,28 @@ using UnityEngine;
 
 public class CheckPlayerInSite : NewMonoBehaviour
 {
-    [SerializeField] protected bool isPlayerInSite;
-    public bool IsPlayerInSite => isPlayerInSite;
+    public bool isPlayerInSite;
+    [SerializeField] protected PlayerControler playerControler;
 
-    protected virtual void OnTriggerStay(Collider collision)
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadPlayerController();
+    }
+
+    protected virtual void LoadPlayerController()
+    {
+        if(this.playerControler != null) return;
+        this.playerControler = FindAnyObjectByType<PlayerControler>();
+        Debug.Log(transform.name + ": LoadUIController()", gameObject);
+    }
+
+    protected virtual void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
             
             this.isPlayerInSite = true;
+            playerControler._objectCrouch.isPlayerInSite = true;
         }
     }
 
@@ -17,6 +31,7 @@ public class CheckPlayerInSite : NewMonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
            this.isPlayerInSite = false;
+           playerControler._objectCrouch.isPlayerInSite = false;
         }
     }
 }

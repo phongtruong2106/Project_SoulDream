@@ -7,6 +7,7 @@ public class ObjectCrouch : NewMonoBehaviour
     protected PlayerControler playerControler;
     private float lastControlClickTime = 0f;
     private float doubleClickThreshold = 0.3f;
+    public bool isPlayerInSite = false;
     
 
     protected override void LoadComponents()
@@ -41,18 +42,22 @@ public class ObjectCrouch : NewMonoBehaviour
 
     protected virtual void CheckInput()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if(!isPlayerInSite)
         {
-            float timeSinceLastClick = Time.time - lastControlClickTime;
-            if (timeSinceLastClick <= doubleClickThreshold)
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                this.isCrouch = false;
+                float timeSinceLastClick = Time.time - lastControlClickTime;
+                if (timeSinceLastClick <= doubleClickThreshold)
+                {
+                    this.isCrouch = false;
+                }
+                else
+                {
+                    this.isCrouch = true;
+                }
+                lastControlClickTime = Time.time;
             }
-            else
-            {
-                this.isCrouch = true;
-            }
-            lastControlClickTime = Time.time;
         }
+        
     }
 }

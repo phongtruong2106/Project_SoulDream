@@ -4743,7 +4743,7 @@ Transform:
   m_GameObject: {fileID: 298111316}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0.509}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10817,6 +10817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerInSite: 0
+  playerControler: {fileID: 7185057615905172514}
 --- !u!54 &874199880
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15267,6 +15268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hideawayCabinetController: {fileID: 2073247571}
+  ObjectCheckPlayerInSite: {fileID: 874199877}
+  playerControler: {fileID: 7185057615905172514}
 --- !u!1 &1168795488
 GameObject:
   m_ObjectHideFlags: 0
@@ -37433,6 +37436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCrouch: 0
+  isPlayerInSite: 0
 --- !u!114 &703437250174361043
 MonoBehaviour:
   m_ObjectHideFlags: 0
