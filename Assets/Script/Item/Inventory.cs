@@ -56,7 +56,7 @@ public class Inventory : NewMonoBehaviour
         newItem.transform.parent.SetParent(itemHolder);
         // newItem.transform.localPosition = Vector3.zero; 
         uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
-        newItem.transform.parent.gameObject.SetActive(false);
+        //newItem.transform.parent.gameObject.SetActive(false);
         currentItemInSlot = newItem;
     }
 
