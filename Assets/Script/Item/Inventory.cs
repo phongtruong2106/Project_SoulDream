@@ -11,6 +11,7 @@ public class Inventory : NewMonoBehaviour
     [SerializeField] private Transform itemHolder;
     [SerializeField] protected UIController uIController;
     [SerializeField] private Dictionary<ItemType, Item> itemDictionary = new Dictionary<ItemType, Item>();
+    [SerializeField] private Transform postionHandTargetGrabItem;
 
     public Dictionary<ItemType, Item> ItemsDictionary => itemDictionary;
     private Item currentItemInSlot;
@@ -56,7 +57,8 @@ public class Inventory : NewMonoBehaviour
         newItem.transform.parent.SetParent(itemHolder);
         // newItem.transform.localPosition = Vector3.zero; 
         uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
-        //newItem.transform.parent.gameObject.SetActive(false);
+        // newItem.transform.parent.gameObject.SetActive(false);
+         newItem.transform.parent.position = new  Vector3 (postionHandTargetGrabItem.position.x, postionHandTargetGrabItem.position.y, postionHandTargetGrabItem.position.z);
         currentItemInSlot = newItem;
     }
 
