@@ -12,13 +12,20 @@ public class Inventory : NewMonoBehaviour
     [SerializeField] protected UIController uIController;
     [SerializeField] private Dictionary<ItemType, Item> itemDictionary = new Dictionary<ItemType, Item>();
     [SerializeField] private Transform postionHandTargetGrabItem;
-
+    [SerializeField] protected bool isGrab = true;
+    public bool IsGrab => isGrab;
     public Dictionary<ItemType, Item> ItemsDictionary => itemDictionary;
     private Item currentItemInSlot;
+    protected bool isFull = false;
     
  
     private static Inventory instance;
     public static Inventory Instance => instance;
+
+    protected void Update()
+    {
+        this.PressToDrop();
+    }
 
     protected override void Awake()
     {
@@ -45,21 +52,43 @@ public class Inventory : NewMonoBehaviour
     }
     public void AddItem(Item newItem)
     {
+        if(currentItemInSlot == null)
+        {
+            Debug.Log("AOa");
+            itemDictionary[newItem._itemSO.itemType] = newItem;
+            newItem.transform.SetParent(itemHolder);
+            // newItem.transform.localPosition = Vector3.zero; 
+            uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
+            //newItem.transform.gameObject.SetActive(false);
+            newItem.transform.position = new Vector3 (postionHandTargetGrabItem.position.x, postionHandTargetGrabItem.position.y, postionHandTargetGrabItem.position.z);
+            currentItemInSlot = newItem;
+            isGrab = true;
+        
+        }
+       
+       
+    }
+    
+    protected virtual void PressToDrop()
+    {
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            this.DropCurrentItem();
+        }
+    }
+
+    protected virtual void DropCurrentItem()
+    {
         if (currentItemInSlot != null)
         {
-            currentItemInSlot.transform.parent.gameObject.SetActive(true);
-            if (itemDictionary.ContainsKey(currentItemInSlot._itemSO.itemType))
-            {
-                itemDictionary.Remove(currentItemInSlot._itemSO.itemType);
-            }
+            currentItemInSlot.transform.gameObject.SetActive(true);
+            currentItemInSlot.transform.SetParent(null);
+            itemDictionary.Remove(currentItemInSlot._itemSO.itemType);
+            uIController._uIGame._spriteItem.sprite = null;
+            currentItemInSlot = null;
+            OnKeysChanged?.Invoke(this, EventArgs.Empty);
+            this.isGrab = false;
         }
-        itemDictionary[newItem._itemSO.itemType] = newItem;
-        newItem.transform.parent.SetParent(itemHolder);
-        // newItem.transform.localPosition = Vector3.zero; 
-        uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
-        // newItem.transform.parent.gameObject.SetActive(false);
-         newItem.transform.parent.position = new  Vector3 (postionHandTargetGrabItem.position.x, postionHandTargetGrabItem.position.y, postionHandTargetGrabItem.position.z);
-        currentItemInSlot = newItem;
     }
 
    public void RemoveItemWithGameObject(ItemType itemType)
@@ -69,7 +98,7 @@ public class Inventory : NewMonoBehaviour
             Item item = itemDictionary[itemType];
             if (item != null && item.gameObject != null)
             {
-                Destroy(item.transform.parent.gameObject);
+                Destroy(item.transform.gameObject);
             }
             ItemsDictionary.Remove(itemType);
             uIController._uIGame._spriteItem.sprite = null;

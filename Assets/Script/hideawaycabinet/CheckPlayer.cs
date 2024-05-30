@@ -7,7 +7,6 @@ public class CheckPlayer : NewMonoBehaviour
     [SerializeField] protected hideawayCabinetController hideawayCabinetController;
     [SerializeField] protected string textBox;
     [SerializeField] protected UIController uIController;
-    [SerializeField] protected UI_PressButton uI_PressButton;
     protected bool isPlayer  = false;
     public bool IsPlayer => isPlayer;
 
@@ -15,7 +14,6 @@ public class CheckPlayer : NewMonoBehaviour
     {
         base.LoadComponents();
         this.LoadUIController();
-        this.LoadUIPressButton();
         this.LoadhideawayCabinetController();
     }
 
@@ -32,17 +30,11 @@ public class CheckPlayer : NewMonoBehaviour
         this.uIController = FindAnyObjectByType<UIController>();
         Debug.Log(transform.name + ": LoadUIController()", gameObject);
     }
-    protected virtual void LoadUIPressButton()
-    {
-         if(this.uI_PressButton != null) return;
-        this.uI_PressButton = FindAnyObjectByType<UI_PressButton>();
-        Debug.Log(transform.name + ": LoadUIPressButton()", gameObject);
-    }
      protected virtual void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
             uIController._uIGameObject.UI_PressButtonObj.gameObject.SetActive(true);
-            uI_PressButton._text_ObjPress.text = textBox;
+            uIController._uI_PressButton._text_ObjPress.text = textBox;
             this.isPlayer = true;
             
         }

@@ -15,6 +15,9 @@ public class UIController : NewMonoBehaviour
     public UIGame _uIGame => uIGame;
     [SerializeField] protected UIGameObject uIGameObject;
     public UIGameObject _uIGameObject => uIGameObject;
+    [SerializeField] protected UI_PressButtonItem uI_PressButtonItem;
+    public UI_PressButtonItem _uI_PressButtonItem => uI_PressButtonItem;
+    
 
     protected override void LoadComponents()
     {
@@ -25,6 +28,7 @@ public class UIController : NewMonoBehaviour
         this.LoadDialogueNew();
         this.LoadUIGame();
         this.LoadUIGameObject();
+        this.LoadUIPressButtonItem();
     }
 
     protected virtual void LoadUIGameObject()
@@ -32,6 +36,13 @@ public class UIController : NewMonoBehaviour
         if(this.uIGameObject != null) return;
         this.uIGameObject = FindAnyObjectByType<UIGameObject>();
         Debug.Log(transform.name + ": LoadUIGameObject()", gameObject);
+    }
+
+    protected virtual void LoadUIPressButtonItem()
+    {
+        if(this.uI_PressButtonItem != null) return;
+        this.uI_PressButtonItem = GetComponentInChildren<UI_PressButtonItem>();
+        Debug.Log(transform.name + ": LoadUIPressButtonItem()", gameObject);
     }
 
     protected virtual void LoadUIDialogue()
