@@ -12,11 +12,10 @@ public class Item : NewMonoBehaviour
         this.LoadItemEvent();
     }
 
-    protected void FixedUpdate()
+    protected void Update()
     {
         this.PressToGrab();
     }
-
     protected virtual void LoadItemEvent()
     {
         if(this.itemEvent!= null) return;
@@ -33,6 +32,7 @@ public class Item : NewMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G) && itemEvent.IsChecktoGrab)
         {
+            Debug.Log("Attempting to add item to inventory", gameObject);
             Inventory.Instance.AddItem(this);
         }
     }

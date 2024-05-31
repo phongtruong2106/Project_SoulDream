@@ -22,6 +22,6 @@ public class ItemGrab : NewMonoBehaviour
 
     // protected virtual void PressGInput()
     // {
-    //     Inventory.Instance.AddItem(this);
+    //     Inventory.Instance.AddItemForGrab(this);
     // }
 }

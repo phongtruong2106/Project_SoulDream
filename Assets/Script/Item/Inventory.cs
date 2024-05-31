@@ -10,11 +10,11 @@ public class Inventory : NewMonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform itemHolder;
     [SerializeField] protected UIController uIController;
-    [SerializeField] private Dictionary<ItemType, Item> itemDictionary = new Dictionary<ItemType, Item>();
+    private Dictionary<ItemType, Item> itemDictionary = new Dictionary<ItemType, Item>();
+    public Dictionary<ItemType, Item> ItemsDictionary => itemDictionary;
     [SerializeField] private Transform postionHandTargetGrabItem;
     [SerializeField] protected bool isGrab = true;
     public bool IsGrab => isGrab;
-    public Dictionary<ItemType, Item> ItemsDictionary => itemDictionary;
     private Item currentItemInSlot;
     protected bool isFull = false;
     
@@ -25,6 +25,7 @@ public class Inventory : NewMonoBehaviour
     protected void Update()
     {
         this.PressToDrop();
+        LogItemCount();
     }
 
     protected override void Awake()
@@ -52,28 +53,18 @@ public class Inventory : NewMonoBehaviour
     }
     public void AddItem(Item newItem)
     {
-        if(currentItemInSlot == null)
+        if (currentItemInSlot == null)
         {
-            Debug.Log("AOa");
             itemDictionary[newItem._itemSO.itemType] = newItem;
             newItem.transform.SetParent(itemHolder);
-            // newItem.transform.localPosition = Vector3.zero; 
             uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
-            //newItem.transform.gameObject.SetActive(false);
-            newItem.transform.position = new Vector3 (postionHandTargetGrabItem.position.x, postionHandTargetGrabItem.position.y, postionHandTargetGrabItem.position.z);
+            newItem.transform.position = postionHandTargetGrabItem.position;
             currentItemInSlot = newItem;
             isGrab = true;
-        
         }
-       
-       
-    }
-    
-    protected virtual void PressToDrop()
-    {
-        if(Input.GetKeyDown(KeyCode.G))
+        else
         {
-            this.DropCurrentItem();
+            Debug.Log("Cannot add item, inventory slot is already full");
         }
     }
 
@@ -81,16 +72,27 @@ public class Inventory : NewMonoBehaviour
     {
         if (currentItemInSlot != null)
         {
-            currentItemInSlot.transform.gameObject.SetActive(true);
-            currentItemInSlot.transform.SetParent(null);
             itemDictionary.Remove(currentItemInSlot._itemSO.itemType);
             uIController._uIGame._spriteItem.sprite = null;
+            currentItemInSlot.transform.SetParent(null);
+            currentItemInSlot.transform.position = postionHandTargetGrabItem.transform.position + postionHandTargetGrabItem.transform.forward * 0.5f;
             currentItemInSlot = null;
             OnKeysChanged?.Invoke(this, EventArgs.Empty);
-            this.isGrab = false;
+            isGrab = false;
+            Debug.Log("Item dropped from inventory");
+        }
+        else
+        {
+            Debug.Log("No item to drop");
         }
     }
-
+    protected virtual void PressToDrop()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            this.DropCurrentItem();
+        }
+    }
    public void RemoveItemWithGameObject(ItemType itemType)
     {
         if (itemDictionary.ContainsKey(itemType))
@@ -104,5 +106,10 @@ public class Inventory : NewMonoBehaviour
             uIController._uIGame._spriteItem.sprite = null;
             OnKeysChanged?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    private void LogItemCount()
+    {
+        Debug.Log("Current number of items in inventory: " + itemDictionary.Count);
     }
 }
