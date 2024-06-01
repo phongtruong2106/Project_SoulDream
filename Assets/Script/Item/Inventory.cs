@@ -93,6 +93,8 @@ public class Inventory : NewMonoBehaviour
             this.DropCurrentItem();
         }
     }
+
+    
    public void RemoveItemWithGameObject(ItemType itemType)
     {
         if (itemDictionary.ContainsKey(itemType))

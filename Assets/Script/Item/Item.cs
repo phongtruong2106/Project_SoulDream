@@ -30,7 +30,7 @@ public class Item : NewMonoBehaviour
 
     protected virtual void PressToGrab()
     {
-        if (Input.GetKeyDown(KeyCode.G) && itemEvent.IsChecktoGrab)
+        if (Input.GetKeyDown(KeyCode.H) && itemEvent.IsChecktoGrab)
         {
             Debug.Log("Attempting to add item to inventory", gameObject);
             Inventory.Instance.AddItem(this);
