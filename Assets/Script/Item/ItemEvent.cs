@@ -62,6 +62,10 @@ public class ItemEvent : NewMonoBehaviour
                 this.isChecktoGrab = false;
             }
         }
+        else
+        {
+             uIController._uI_PressButtonItem.UI_pressButtonItem.gameObject.SetActive(false);
+        }
         
     }
 

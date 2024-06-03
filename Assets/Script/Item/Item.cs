@@ -5,6 +5,7 @@ public class Item : NewMonoBehaviour
     [SerializeField] private ItemSO itemSO;
     public ItemSO _itemSO => itemSO;
     protected ItemEvent itemEvent;
+    
 
     protected override void LoadComponents()
     {
@@ -32,7 +33,6 @@ public class Item : NewMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H) && itemEvent.IsChecktoGrab)
         {
-            Debug.Log("Attempting to add item to inventory", gameObject);
             Inventory.Instance.AddItem(this);
         }
     }
