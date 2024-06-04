@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1339d7780b1284fa31ad74eb9523c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBox: Press G to Grab
+  textBox: Press H to Grab
   inventory: {fileID: 7223472544691847685}
   uIController: {fileID: 1498809269}
   itemCheck: {fileID: 1440683058}
@@ -61407,7 +61407,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   itemHolder: {fileID: 4098184426887017134}
   uIController: {fileID: 1498809269}
-  postionHandTargetGrabItem: {fileID: 1751569011}
+  postionHandTargetGrabItem: {fileID: 1751569010}
   isGrab: 1
 --- !u!1 &7227110490502949083
 GameObject:

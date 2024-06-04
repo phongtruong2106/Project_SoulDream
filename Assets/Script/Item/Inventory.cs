@@ -22,12 +22,7 @@ public class Inventory : NewMonoBehaviour
     private static Inventory instance;
     public static Inventory Instance => instance;
 
-    protected void Update()
-    {
-        this.PressToDrop();
-        //LogItemCount();
-    }
-
+    
     protected override void Awake()
     {
         if (instance != null && instance != this)
@@ -38,6 +33,11 @@ public class Inventory : NewMonoBehaviour
         {
             instance = this;
         }
+    }
+
+    private void Update()
+    {
+            this.PressToDrop();
     }
     protected override void LoadComponents()
     {
@@ -58,10 +58,7 @@ public class Inventory : NewMonoBehaviour
                 itemDictionary[newItem._itemSO.itemType] = newItem;
                 newItem.transform.SetParent(itemHolder);
                 uIController._uIGame._spriteItem.sprite = newItem._itemSO.image;
-                Vector3 handPosition = postionHandTargetGrabItem.transform.position;
-                newItem.transform.position = handPosition;
-                Vector3 offset = newItem.transform.position - handPosition;
-                newItem.transform.position += offset;
+                newItem.transform.position = new Vector3(postionHandTargetGrabItem.transform.position.x, postionHandTargetGrabItem.transform.position.y ,postionHandTargetGrabItem.transform.position.z);
                 currentItemInSlot = newItem;
                 isGrab = true;
             }
@@ -73,29 +70,26 @@ public class Inventory : NewMonoBehaviour
 
     protected virtual void DropCurrentItem()
     {
-        if (currentItemInSlot != null)
+        if(currentItemInSlot != null)
         {
             itemDictionary.Remove(currentItemInSlot._itemSO.itemType);
             uIController._uIGame._spriteItem.sprite = null;
             currentItemInSlot.transform.SetParent(null);
-            currentItemInSlot.transform.position = postionHandTargetGrabItem.transform.position + postionHandTargetGrabItem.transform.forward * 1f;
+            Vector3 dropPosition = postionHandTargetGrabItem.transform.position + postionHandTargetGrabItem.transform.forward * 1f;
+            currentItemInSlot.transform.position = dropPosition;
             currentItemInSlot = null;
             OnKeysChanged?.Invoke(this, EventArgs.Empty);
             isGrab = false;
-            Debug.Log("Item dropped from inventory");
-        }
-        else
-        {
-            Debug.Log("No item to drop");
         }
     }
+
+    
     protected virtual void PressToDrop()
     {
-        
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                this.DropCurrentItem();
-            }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            this.DropCurrentItem();
+        }
     }
 
     
